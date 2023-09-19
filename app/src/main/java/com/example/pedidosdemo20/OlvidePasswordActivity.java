@@ -90,7 +90,8 @@ public class OlvidePasswordActivity extends AppCompatActivity
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable editable)
+            {
 
             }
         });
@@ -144,7 +145,8 @@ public class OlvidePasswordActivity extends AppCompatActivity
                     TextView tvEmail = view.findViewById(R.id.tvEmail);
                     TextView tvTextoError = view.findViewById(R.id.tvTextoError);
 
-                    tvEmail.setText("emai no registrado");
+                    tvEmail.setText(R.string.emailNoRegistrado);
+                    tvTextoError.setText(R.string.emailIncorrecto);
                     Typeface poppins = Typeface.createFromAsset(getAssets(), "font/Poppins-Regular.ttf");
                     tvEmail.setTypeface(poppins);
                     tvTextoError.setTypeface(poppins);

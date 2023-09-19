@@ -101,5 +101,7 @@
     <string name="usuarioNoValido">el usuario o contraseña no son váilidos</string>
     <string name="restaurarPassword">Restaurar contraseña</string>
     <string name="textoPassword">Ingresa el electrónico asociado a tu cuenta y te enviaremos un código de acceso para restablecer tu contraseña</string>
+    <string name="emailNoRegistrado">Email no registrado</string>
+    <string name="emailIncorrecto">el email puesto no está registrado, pruebe con otro correo electrónico</string>
 
 </resources>
