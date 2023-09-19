@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="fondo">#F8F8F8</color>
+    <color name="iconos">#5867DD</color>
+    <color name="letras">#5D5B6F</color>
+    <color name="letrasClaras">#A0A0A3</color>
+    <color name="rojo">#F74A4A</color>
+    <color name="naranja">#F9873D</color>
+    <color name="azul">#92A6E6</color>
+    <color name="verde">#91DCAE</color>
+    <color name="letrasAzules">#1D368C</color>
+
+    <color name="fondoPantallaCarga">#5867DD</color>
+    <color name="colorGris">#ADADAD</color>
+    <color name="fondoPedidos">#D8D2D2</color>
+    <color name="fondoBlanco">#FFFFFF</color>
+</resources>

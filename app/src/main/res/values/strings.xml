@@ -1,0 +1,105 @@
+<resources>
+    <string name="app_name">Pedidos Demo 2.0</string>
+    <string name="mis_pedidos">Mis pedidos</string>
+    <string name="nuevo_pedido">Nuevo pedido</string>
+    <string name="neveras">Neveras</string>
+    <string name="pedidoEnEspera">Pedido en espera de confirmación</string>
+    <string name="pedidoConfirmado">Pedido confirmado</string>
+    <string name="pedidoEnReparto">Pedido en reparto</string>
+    <string name="fechaPrevistaEntrega">Fecha prevista de entrega</string>
+    <string name="numeroDosis">Número de dosis</string>
+    <string name="filtrarPor">Filtrar por</string>
+    <string name="noHayPedidos">En este momento no tienes pedidos en curso</string>
+    <string name="numeroPedido">Número de pedido</string>
+    <string name="albaran">Albarán Nº</string>
+    <string name="detallesPedido">Detalles de pedido</string>
+    <string name="fechaYHoraPedido">Fecha y hora de pedido</string>
+    <string name="numeroAlbaran">Número de albaran</string>
+    <string name="fechaYHoraEntrega">Fecha y hora de entrega</string>
+    <string name="detallesProducto">Detalles de productos</string>
+    <string name="detallesEntrega">Detalle de entrega</string>
+    <string name="datosContacto">Datos de contacto</string>
+    <string name="granja">Granja</string>
+    <string name="direccionEntrega">Dirección de entrega</string>
+    <string name="coordenadasEnvio">Coordenadas de envío</string>
+    <string name="latitud">Latitud</string>
+    <string name="longitud">Longitud</string>
+    <string name="nevera">Nevera</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="contacto1">Contacto 1</string>
+    <string name="contacto2">Contacto 2</string>
+    <string name="nombre">Nombre</string>
+    <string name="numeroContacto">Número de contacto</string>
+    <string name="correoElectronico">Correo electrónico</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="fechaDePedido">Fecha de pedido</string>
+    <string name="boarBoost">BoarBoost</string>
+    <string name="bsmKubus">BSM® de KUBUS</string>
+    <string name="textoRegistro">Para empezar, necesitamos validar unos datos:</string>
+    <string name="rega">REGA</string>
+    <string name="ingresaRega">Ingresa el código REGA de tu granja</string>
+    <string name="codigoGranjaBSM">Código de la granja en BSM®</string>
+    <string name="textoCodigo">Este código te lo proporcionará tu Centro de inseminación, si no  lo tienes, ponte en contacto con él.</string>
+    <string name="ingresaCodigo">Ingresa el código que te dió tu centro</string>
+    <string name="aunNoHayCuenta">¿Aún no tienes cuenta?</string>
+    <string name="loSentimos">¡Lo sentimos!</string>
+    <string name="textoErrorAutentificacion">El código REGA y/o el código de granja en BSM® que has introducido no son válidos, verifica los datos e inténtalo nuevamente. <br /> Si persiste
+    el error, contacta con tu centro de inseminación</string>
+
+    <string name="textoGranja">¡Genial! Ya estás cada vez más cerca de poder hacer pedidos a tu Centro de inseminación desde el móvil.<br /> Ahora necesitamos tu nombre, un email
+    y contraseña, con estos datos podrás utilizar la App desde cualquier dispositivo móvil o tablet.</string>
+    <string name="ingresaNombre">Ingresa tu nombre</string>
+    <string name="ingresaCorreo">Ingresa un correo electrónico</string>
+    <string name="ingresaTuCorreo">Ingresa tu correo electrónico</string>
+    <string name="eligePassword">Elige una contraseña</string>
+    <string name="repitePassword">Repite la contraseña</string>
+    <string name="repitePasswordArriba">Repite la contraseña que usaste arriba</string>
+    <string name="condicionesPassword">Usa al menos 5 caracteres, incluyendo letras y números</string>
+    <string name="emailRegistrado">El email está ya está repetido, pruebe con otro correo.</string>
+    <string name="password">Contraseña</string>
+    <string name="ingresaUnaPassword">Ingresa unas contraseña</string>
+    <string name="olvidastePasword"><![CDATA[<u>¿Olvidaste tu contraseña?</u>]]></string>
+
+
+    <string name="politicaPrivacidad">POLÍTICA DE PRIVACIDAD</string>
+    <string name="aceptaTerminos">Al registrarse en la aplicación acepta los</string>
+    <string name="conf">terminos de privacidad y datos.</string>
+    <string name="aceptarTerminos">Aceptar terminos</string>
+    <string name="continuar">Continuar</string>
+    <string name="texto1Proteccion">La presente Política de Privacidad establece los términos en que KUBUS LAB usa y protege la información que es proporcionada por
+    sus usuarios al momento de utilizar su aplicación. Esta compañía está comprometida con la seguridad de los datos de sus usuarios.
+    Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo
+    se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser
+    actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos
+    cambios.</string>
+    <string name="titulo1Proteccion">Información que es recogida</string>
+    <string name="texto2Proteccion">Nuestra aplicación móvil podrá recoger información personal por ejemplo: Nombre,  información de contacto como su dirección de
+    correo electrónico e información demográfica. Así mismo cuando sea necesario podrá ser requerida información específica para procesar
+    algún pedido o realizar una entrega o facturación.</string>
+    <string name="titulo2Proteccion">Uso de la información recogida</string>
+    <string name="texto3Proteccion">Nuestro sitio web emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un
+    registro de usuarios, de pedidos en caso que aplique, y mejorar nuestros productos y servicios.  Es posible que sean enviados correos
+     electrónicos periódicamente a través de nuestro sitio con ofertas especiales, nuevos productos y otra información publicitaria que
+    consideremos relevante para usted o que pueda brindarle algún beneficio, estos correos electrónicos serán enviados a la dirección que
+    usted proporcione y podrán ser cancelados en cualquier momento poniéndose en contacto con la compañia. KUBUS LAB está altamente
+    comprometido para cumplir con el compromiso de mantener su información segura. Usamos los sistemas más avanzados y los actualizamos
+    constantemente para asegurarnos que no exista ningún acceso no autorizado.</string>
+    <string name="titulo3Proteccion">Enlaces a Terceros</string>
+    <string name="texto4Proteccion">Esta aplicación pudiera contener enlaces a otros sitios que pudieran ser de su interés. Una vez que usted de clic en estos enlaces
+     y abandone nuestra aplicación, ya no tenemos control sobre al sitio al que es redirigido y por lo tanto no somos responsables de los
+    términos o privacidad ni de la protección de sus datos en esos otros sitios terceros. Dichos sitios están sujetos a sus propias
+    políticas de privacidad por lo cual es recomendable que los consulte para confirmar que usted está de acuerdo con estas.</string>
+    <string name="titulo4Proteccion">Control de su información personal</string>
+    <string name="texto5Proteccion">Esta compañía no venderá, cederá ni distribuirá la información personal que es recopilada sin su consentimiento, salvo que sea
+    requerido por un juez con un orden judicial. KUBUS LAB Se reserva el derecho de cambiar los términos de la presente Política de Privacidad
+    en cualquier momento.</string>
+    <string name="debesAceptarTerminos">Debes aceptar los terminos de privacidad de datos</string>
+    <string name="textoInicioSesion">Estamos encantados de tenerte de vuelta. Por favor, introduce el correo con el que normalmente accedes a tu cuenta y tu contraseña</string>
+
+    <string name="usuarioNoValido">el usuario o contraseña no son váilidos</string>
+    <string name="restaurarPassword">Restaurar contraseña</string>
+    <string name="textoPassword">Ingresa el electrónico asociado a tu cuenta y te enviaremos un código de acceso para restablecer tu contraseña</string>
+
+</resources>

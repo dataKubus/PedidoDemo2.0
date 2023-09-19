@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/fondo">
+
+    <TextView
+        android:id="@+id/tvNumerodosis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroDosis"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvNumdosis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/border_dosis"
+        android:paddingStart="20dp"
+        android:paddingLeft="5dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="5dp"
+        android:text="35"
+        android:textColor="@color/letras"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumerodosis"/>
+
+    <ImageView
+        android:id="@+id/ivLinea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_linea_genetica"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumdosis"/>
+
+    <TextView
+        android:id="@+id/tvLineaGenetica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Hypor kyrilewnko"
+        android:textColor="@color/letras"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/ivLinea"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumdosis"/>
+
+    <ImageView
+        android:id="@+id/ivBlister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_formato"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLinea" />
+
+    <TextView
+        android:id="@+id/tvFormato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="blister 50 ml"
+        android:textColor="@color/letras"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/ivLinea"
+        app:layout_constraintTop_toBottomOf="@+id/tvLineaGenetica"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

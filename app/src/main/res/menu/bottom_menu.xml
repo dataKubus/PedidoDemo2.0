@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itMisPedidos"
+        android:icon="@drawable/ic_my_pedidos"
+        android:title="@string/mis_pedidos"/>
+
+    <item
+        android:id="@+id/itNuevoPedido"
+        android:title="@string/nuevo_pedido"
+        android:icon="@drawable/ic_new_pedido"/>
+
+    <item
+        android:id="@+id/itNeveras"
+        android:title="@string/neveras"
+        android:icon="@drawable/ic_nevera"/>
+</menu>

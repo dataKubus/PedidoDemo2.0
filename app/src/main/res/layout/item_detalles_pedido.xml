@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border">
+
+    <TextView
+        android:id="@+id/tvTituloPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="9dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroPedido"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFechaYHoraDePedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/fechaYHoraPedido"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivCajaEntregada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_caja_entregada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloPedido" />
+
+    <TextView
+        android:id="@+id/tvNumPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroPedido"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/ivCajaEntregada"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloPedido" />
+
+    <TextView
+        android:id="@+id/tvFechaPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroPedido"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFechaYHoraDePedido" />
+
+    <TextView
+        android:id="@+id/tvTituloNumeroAlbaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroAlbaran"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumPedido" />
+
+    <TextView
+        android:id="@+id/tvTituloFechaAlbaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/fechaYHoraEntrega"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFechaPedido" />
+
+    <ImageView
+        android:id="@+id/ivAlbaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_albaran"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNumeroAlbaran" />
+
+    <TextView
+        android:id="@+id/tvNumAlbaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroPedido"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/ivAlbaran"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNumeroAlbaran"/>
+
+    <TextView
+        android:id="@+id/tvFechaAlbaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroPedido"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloFechaAlbaran"/>
+
+    <TextView
+        android:id="@+id/tvDetallesPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/detallesProducto"
+        android:textColor="@color/letras"
+        android:textSize="17dp"
+        app:layout_constraintStart_toEndOf="@+id/ivAlbaran"
+        app:layout_constraintTop_toBottomOf="@+id/tvNumAlbaran" />
+
+    <ScrollView
+        android:id="@+id/svPedidosEnCurso"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetallesPedido">
+
+        <LinearLayout
+            android:id="@+id/llProductosPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tvDetallesEntrega"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/detallesEntrega"
+        android:textColor="@color/letras"
+        android:textSize="17dp"
+        app:layout_constraintStart_toEndOf="@+id/ivAlbaran"
+        app:layout_constraintTop_toBottomOf="@+id/svPedidosEnCurso" />
+
+    <ScrollView
+        android:id="@+id/svDetalleEntrega"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetallesEntrega">
+
+        <LinearLayout
+            android:id="@+id/llEntrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tvDatosContacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/datosContacto"
+        android:textColor="@color/letras"
+        android:textSize="17dp"
+        app:layout_constraintStart_toEndOf="@+id/ivAlbaran"
+        app:layout_constraintTop_toBottomOf="@+id/svDetalleEntrega" />
+
+    <ScrollView
+        android:id="@+id/svDatosContacto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDatosContacto">
+
+        <LinearLayout
+            android:id="@+id/llContacto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/fondo">
+
+    <TextView
+        android:id="@+id/tvTituloContacto1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="9dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/contacto1"
+        android:textColor="@color/letrasClaras"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvTituloContacto2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="9dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/contacto2"
+        android:textColor="@color/letrasClaras"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloContacto1"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/tvTituloNombre1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloContacto1"/>
+
+    <TextView
+        android:id="@+id/tvTituloNombre2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloContacto1"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloContacto2" />
+
+    <TextView
+        android:id="@+id/tvNombre1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNombre1" />
+
+    <TextView
+        android:id="@+id/tvNombre2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloContacto1"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNombre2" />
+
+    <TextView
+        android:id="@+id/tvTituloNumContacto1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroContacto"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombre1"/>
+
+    <TextView
+        android:id="@+id/tvTituloNumContacto2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/numeroContacto"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloContacto1"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombre2" />
+
+    <TextView
+        android:id="@+id/tvTelefono1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNumContacto1" />
+
+    <TextView
+        android:id="@+id/tvTelefono2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloContacto1"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNumContacto2" />
+
+    <TextView
+        android:id="@+id/tvTituloCorreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/correoElectronico"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTelefono1" />
+
+    <TextView
+        android:id="@+id/tvCorreoElectronico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloCorreo" />
+
+    <ImageView
+        android:id="@+id/ivRepetirPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_repetir_pedido"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivFavorito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_favorito"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCorreoElectronico" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

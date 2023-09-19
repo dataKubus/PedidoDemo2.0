@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Pedidos Demo 2.0"

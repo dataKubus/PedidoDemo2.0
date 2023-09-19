@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/fondo"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivfotoPerfil"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_perfil"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvNombreGranja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="20dp"
+        android:text="Granja Valdelinares"
+        android:textColor="@color/letras"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/ivAjustes"
+        app:layout_constraintStart_toEndOf="@+id/ivfotoPerfil"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="3dp"
+        android:text="Lunes 22 de mayo"
+        android:textColor="@color/letras"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toStartOf="@+id/ivAjustes"
+        app:layout_constraintStart_toEndOf="@+id/ivfotoPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreGranja"/>
+
+    <ImageView
+        android:id="@+id/ivAjustes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_funciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvNombreUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="¡Hola Berdych!"
+        android:textColor="@color/letras"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivfotoPerfil"/>
+
+    <TextView
+        android:id="@+id/tvPedidos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:text="Aqui están todos tus pedidos"
+        android:textColor="@color/letras"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreUsuario"/>
+
+    <LinearLayout
+        android:id="@+id/llBotones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPedidos">
+
+        <ImageView
+            android:id="@+id/ivPEdidosEncurso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_pedidos_en_curso_activados"/>
+
+        <ImageView
+            android:id="@+id/ivPEdidosEntregados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_bot_n_entregados_sin_activar"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
