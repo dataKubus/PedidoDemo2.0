@@ -101,6 +101,8 @@ public class OlvidePasswordActivity extends AppCompatActivity
     {
         if (ivAcceder.getTag().toString().equals("1"))
         {
+            ivAcceder.setImageResource(R.drawable.ic_validar_bloqueado);
+            ivAcceder.setTag("0");
             validarCorreo();
         }
     }
