@@ -34,6 +34,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.pedidosdemo20.BasesDatos.Usuario;
 import com.example.pedidosdemo20.Fragment.PedidosEnCursoFragment;
 import com.example.pedidosdemo20.Fragment.PedidosTerminadosFragment;
 import com.example.pedidosdemo20.ReciclerView.MyAdapter;
@@ -49,6 +50,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -485,6 +487,16 @@ public class MisPedidosActivity extends AppCompatActivity
         ImageView ivPEdidosEncurso = constraintLayout.findViewById(R.id.ivPEdidosEncurso);
         ImageView ivPEdidosEntregados = constraintLayout.findViewById(R.id.ivPEdidosEntregados);
 
+        String fechaHoy = sacarFechaHoy();
+        tvFecha.setText(fechaHoy);
+        ArrayList<Usuario> arUser = new ArrayList<>();
+
+        for (Usuario usuario: arUser)
+        {
+            tvNombreGranja.setText(usuario.getNombreGranja());
+            tvNombreUsuario.setText("¡" + getString(R.string.hola) + " " + usuario.getNombreUsuario() + "!");
+        }
+
         ivfotoPerfil.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -578,6 +590,95 @@ public class MisPedidosActivity extends AppCompatActivity
         });
 
         llPerfil.addView(constraintLayout);
+    }
+
+    private String sacarFechaHoy()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int diaNumerico = calendar.get(Calendar.DAY_OF_MONTH);
+        int diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
+        int mesnumerico = calendar.get(Calendar.MONTH);
+
+        String strDia = diaDeLaSemana(diaSemana);
+        String strMes = diaDelMes(mesnumerico);
+
+        String fechaActual = strDia + ", " + diaNumerico + " " + getString(R.string.de) + " " + strMes;
+        return fechaActual;
+    }
+
+    private String diaDelMes(int mesnumerico)
+    {
+        String mes = "";
+        switch (mesnumerico)
+        {
+            case 0:
+                mes = getString(R.string.enero);
+                break;
+            case 1:
+                mes = getString(R.string.febrero);
+                break;
+            case 2:
+                mes = getString(R.string.marzo);
+                break;
+            case 3:
+                mes = getString(R.string.abril);
+                break;
+            case 4:
+                mes = getString(R.string.mayo);
+                break;
+            case 5:
+                mes = getString(R.string.junio);
+                break;
+            case 6:
+                mes = getString(R.string.julio);
+                break;
+            case 7:
+                mes = getString(R.string.agosto);
+                break;
+            case 8:
+                mes = getString(R.string.septiembre);
+                break;
+            case 9:
+                mes = getString(R.string.octubre);
+                break;
+            case 10:
+                mes = getString(R.string.noviembre);
+                break;
+            case 11:
+                mes = getString(R.string.diciembre);
+                break;
+        }
+        return mes;
+    }
+
+    private String diaDeLaSemana(int diaSemana)
+    {
+        String day = "";
+        switch (diaSemana)
+        {
+            case 2:
+                day = getString(R.string.lunes);
+                break;
+            case 3:
+                day = getString(R.string.martes);
+                break;
+            case 4:
+                day = getString(R.string.miercoles);
+                break;
+            case 5:
+                day = getString(R.string.jueves);
+                break;
+            case 6:
+                day = getString(R.string.viernes);
+                break;
+            case 7:
+                day = getString(R.string.sabado);
+                break;
+            case 8:
+                day = getString(R.string.domingo);
+                break;
+        }
+        return day;
     }
 
     private void establecerPedidosFinalizados()//Webservice para hacer pedidos entregados
@@ -832,6 +933,10 @@ public class MisPedidosActivity extends AppCompatActivity
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+        catch (SecurityException e)
+        {
+
         }
         return null;
     }

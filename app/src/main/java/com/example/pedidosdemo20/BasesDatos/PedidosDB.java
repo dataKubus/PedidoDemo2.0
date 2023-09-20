@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class PedidosDB extends SQLiteOpenHelper
 {
     private SQLiteDatabase db;
@@ -123,5 +125,36 @@ public class PedidosDB extends SQLiteOpenHelper
         cv.put("numSerie", nev.getNumSerie());
 
         db.insert("nevera", null, cv);
+    }
+
+    public ArrayList<Usuario> getUsuario()
+    {
+        Cursor cursor = db.rawQuery("Select id, idUsuarioAnimalSat, nombreUsuario, nombreGranja, email, rega, telefono, direccion, nombreCiaSeleccionado, idCiaSeleccionado, idClienteSeleccionado, idRutaSeleccionado" + " from usuario", null);
+        ArrayList<Usuario> arUser = new ArrayList<>();
+        Usuario usuario;
+        if (cursor.moveToFirst())
+        {
+            do {
+                usuario = new Usuario();
+
+                usuario.setId(cursor.getInt(0));
+                usuario.setIdUsuarioAnimalSat(cursor.getInt(1));
+                usuario.setNombreUsuario(cursor.getString(2));
+                usuario.setNombreGranja(cursor.getString(3));
+                usuario.setEmail(cursor.getString(4));
+                usuario.setRega(cursor.getString(5));
+                usuario.setTelefono(cursor.getString(6));
+                usuario.setDireccion(cursor.getString(7));
+                usuario.setNombreCiaSeleccionado(cursor.getString(8));
+                usuario.setIdCiaSeleccionado(cursor.getString(9));
+                usuario.setIdClienteSeleccionado(cursor.getInt(10));
+                usuario.setIdRutaSeleccionado(cursor.getInt(11));
+
+                arUser.add(usuario);
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return arUser;
     }
 }

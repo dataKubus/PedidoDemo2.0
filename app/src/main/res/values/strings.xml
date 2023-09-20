@@ -64,8 +64,7 @@
 
 
     <string name="politicaPrivacidad">POLÍTICA DE PRIVACIDAD</string>
-    <string name="aceptaTerminos">Al registrarse en la aplicación acepta los</string>
-    <string name="conf">terminos de privacidad y datos.</string>
+    <string name="aceptaTerminos">Al registrarse en la aplicación acepta los terminos de privacidad y datos.</string>
     <string name="aceptarTerminos">Aceptar terminos</string>
     <string name="continuar">Continuar</string>
     <string name="texto1Proteccion">La presente Política de Privacidad establece los términos en que KUBUS LAB usa y protege la información que es proporcionada por
@@ -103,5 +102,30 @@
     <string name="textoPassword">Ingresa el electrónico asociado a tu cuenta y te enviaremos un código de acceso para restablecer tu contraseña</string>
     <string name="emailNoRegistrado">Email no registrado</string>
     <string name="emailIncorrecto">el email puesto no está registrado, pruebe con otro correo electrónico</string>
+
+    <string name="emailNoValido">Email no válido</string>
+    <string name="lunes">Lunes</string>
+    <string name="martes">Martes</string>
+    <string name="miercoles">Miércoles</string>
+    <string name="jueves">Jueves</string>
+    <string name="viernes">Viernes</string>
+    <string name="sabado">Sábado</string>
+    <string name="domingo">Domingo</string>
+
+    <string name="enero">Enero</string>
+    <string name="febrero">Febrero</string>
+    <string name="marzo">Marzo</string>
+    <string name="abril">Abril</string>
+    <string name="mayo">Mayo</string>
+    <string name="junio">Junio</string>
+    <string name="julio">Julio</string>
+    <string name="agosto">Agosto</string>
+    <string name="septiembre">Septiembre</string>
+    <string name="octubre">Octubre</string>
+    <string name="noviembre">Noviembre</string>
+    <string name="diciembre">Diciembre</string>
+
+    <string name="de">de</string>
+    <string name="hola">Hola</string>
 
 </resources>

@@ -11,55 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:text="@string/politicaPrivacidad"
         android:textColor="@color/letras"
-        android:textSize="20dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/tvTexto"
+    <ImageView
+        android:id="@+id/ivCandado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fondoPedidos"
-        android:gravity="center"
-        android:text="@string/aceptaTerminos"
-        android:textColor="@color/letras"
-        android:textSize="17dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_proteccion_de_datos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLeyProteccion" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLeyProteccion"/>
 
-    <TextView
-        android:id="@+id/tvProteccionDatos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/fondoPedidos"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:text="@string/conf"
-        android:textColor="@color/iconos"
-        android:textSize="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTexto" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView5"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         android:background="@color/fondoBlanco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProteccionDatos">
+        app:layout_constraintTop_toBottomOf="@+id/ivCandado">
 
         <LinearLayout
             android:id="@+id/llPolitica"
@@ -68,13 +50,22 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/texto0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/aceptaTerminos"
+                android:textColor="@color/colorGris"
+                android:textSize="15dp"/>
+
+            <TextView
                 android:id="@+id/texto1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/texto1Proteccion"
                 android:textColor="@color/colorGris"
-                android:textSize="15dp" />
+                android:textSize="15dp"/>
 
             <TextView
                 android:id="@+id/titulo1"
@@ -84,7 +75,7 @@
                 android:layout_weight="1"
                 android:text="@string/titulo1Proteccion"
                 android:textColor="@color/letras"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/texto2"
@@ -103,7 +94,7 @@
                 android:layout_weight="1"
                 android:text="@string/titulo2Proteccion"
                 android:textColor="@color/letras"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/texto3"
@@ -122,7 +113,7 @@
                 android:layout_weight="1"
                 android:text="@string/titulo3Proteccion"
                 android:textColor="@color/letras"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/texto4"
@@ -141,7 +132,7 @@
                 android:layout_weight="1"
                 android:text="@string/titulo4Proteccion"
                 android:textColor="@color/letras"
-                android:textSize="17dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/texto5"
@@ -153,9 +144,9 @@
                 android:textSize="15dp" />
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <CheckBox
+    <!--<CheckBox
         android:id="@+id/cbAceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -164,7 +155,7 @@
         android:layout_marginRight="10dp"
         android:background="@color/fondoPedidos"
         app:layout_constraintEnd_toStartOf="@+id/txte"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView5"/>
 
     <TextView
         android:id="@+id/txte"
@@ -177,7 +168,7 @@
         android:textColor="@color/letras"
         android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView5"/>
 
     <TextView
         android:id="@+id/tvAceptarTerminos"
@@ -195,6 +186,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txte" />
+        app:layout_constraintTop_toBottomOf="@+id/txte" />-->
+
+    <ImageView
+        android:id="@+id/ivAcceder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="onclickAcceder"
+        android:src="@drawable/ic_boton_acceder_bloqueado"
+        android:tag="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

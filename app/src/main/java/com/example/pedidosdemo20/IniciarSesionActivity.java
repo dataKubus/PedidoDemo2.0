@@ -15,6 +15,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class IniciarSesionActivity extends AppCompatActivity
 {
@@ -164,12 +166,26 @@ public class IniciarSesionActivity extends AppCompatActivity
     {
         if (ivAcceder.getTag().toString().equals("1"))
         {
-            iniciarSesion();
+            String email = etCorreo.getText().toString();
+            if (emailValido(email))
+            {
+                iniciarSesion();
+            }
+            else
+            {
+                Toast.makeText(IniciarSesionActivity.this, R.string.emailNoValido, Toast.LENGTH_SHORT).show();
+            }
         }
         else
         {
 
         }
+    }
+
+    private boolean emailValido(String email)
+    {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 
     private void iniciarSesion()
@@ -483,6 +499,7 @@ public class IniciarSesionActivity extends AppCompatActivity
             {
                 //Registrar las neveras en caso de que las tuviese de antes
                 JSONArray jsonArray = null;
+                int contador = 0;
 
                 try
                 {
@@ -506,6 +523,7 @@ public class IniciarSesionActivity extends AppCompatActivity
                             String numSerie = jsonObject.getString("numSerie");
 
                             pedidosDB.insertarNevera(new Nevera(nombre, numSerie));
+                            contador++;
                         }
                         catch (JSONException e)
                         {
@@ -522,9 +540,12 @@ public class IniciarSesionActivity extends AppCompatActivity
                 {
                     pedidosDB.crearNotificacion(PedidosDB.NOT_DESACTIVADAS, PedidosDB.bloquearNOT);
                 }*/
+                if (contador == jsonArray.length())
+                {
+                    startActivity(new Intent(IniciarSesionActivity.this, MisPedidosActivity.class));
+                    finish();
+                }
 
-                startActivity(new Intent(IniciarSesionActivity.this, MainActivity.class));
-                finish();
             }
         }, new Response.ErrorListener() {
 

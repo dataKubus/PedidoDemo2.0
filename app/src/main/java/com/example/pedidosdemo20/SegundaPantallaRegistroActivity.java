@@ -1,6 +1,8 @@
 package com.example.pedidosdemo20;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -14,10 +16,13 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +47,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class SegundaPantallaRegistroActivity extends AppCompatActivity
 {
@@ -252,12 +258,26 @@ public class SegundaPantallaRegistroActivity extends AppCompatActivity
     {
         if (ivValidar.getTag().toString().equals("1"))
         {
-            comprobarUsuario();
+            String email = etCorreo.getText().toString();
+            if (emailValido(email))
+            {
+                comprobarUsuario();
+            }
+            else
+            {
+                Toast.makeText(SegundaPantallaRegistroActivity.this, R.string.emailNoValido, Toast.LENGTH_SHORT).show();
+            }
         }
         else
         {
 
         }
+    }
+
+    private boolean emailValido(String email)
+    {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 
     private void comprobarUsuario()
@@ -524,26 +544,60 @@ public class SegundaPantallaRegistroActivity extends AppCompatActivity
         view = getLayoutInflater().inflate(R.layout.alert_dialog_ley_proteccion_datos, null);
         builder.setView(view);
 
-        TextView tvAceptarTerminos = view.findViewById(R.id.tvAceptarTerminos);
-        final CheckBox cbAceptar = view.findViewById(R.id.cbAceptar);
+        /*TextView tvAceptarTerminos = view.findViewById(R.id.tvAceptarTerminos);
+        final CheckBox cbAceptar = view.findViewById(R.id.cbAceptar);*/
+        ImageView ivAcceder = view.findViewById(R.id.ivAcceder);
+        NestedScrollView scrollView5 = view.findViewById(R.id.scrollView5);
+
+        scrollView5.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(@NonNull NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
+            {
+                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())
+                {
+                    ivAcceder.setTag("1");
+                    ivAcceder.setImageResource(R.drawable.ic_boton_acceder_activo);
+                }
+                else
+                {
+                    ivAcceder.setTag("0");
+                    ivAcceder.setImageResource(R.drawable.ic_boton_acceder_bloqueado);
+                }
+            }
+        });
+
+        ivAcceder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if (ivAcceder.getTag().toString().equals("1"))
+                {
+                    realizarRegistro();
+                }
+                else
+                {
+
+                }
+            }
+        });
 
         final android.app.AlertDialog alertDialog = builder.create();
 
-        tvAceptarTerminos.setOnClickListener(new View.OnClickListener()
+        /*tvAceptarTerminos.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 if (cbAceptar.isChecked())
                 {
-                    realizarRegistro();
+
                 }
                 else
                 {
                     Toast.makeText(SegundaPantallaRegistroActivity.this, R.string.debesAceptarTerminos, Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
         alertDialog.show();
     }

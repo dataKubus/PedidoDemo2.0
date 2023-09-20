@@ -229,6 +229,7 @@ public class OlvidePasswordActivity extends AppCompatActivity
     {
         Random random = new Random();
         ArrayList<String> arCaracteres = new ArrayList<>();
+        codigoVerificacion = "";
 
         int caracter1 = random.nextInt(9);
         int caracter2 = random.nextInt(9);
