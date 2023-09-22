@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.pedidosdemo20.BasesDatos.Usuario;
 import com.example.pedidosdemo20.ReciclerView.MyAdapter;
 import com.example.pedidosdemo20.BasesDatos.PedidoFavorito;
 import com.example.pedidosdemo20.BasesDatos.PedidosDB;
@@ -49,6 +50,12 @@ public class DetallesPedidoActivity extends AppCompatActivity
     private LayoutInflater layoutInflater;
     private LinearLayout llDetallesPedido;
     private ConstraintLayout constraintLayout;
+
+    private String nombreGranja = "";
+    private String direccion = "";
+    private String telefono = "";
+    private String correoelectronico = "";
+    private String nevera = "";
 
     public static final String KEY_ID_PEDIDO = "key_id";
 
@@ -112,7 +119,21 @@ public class DetallesPedidoActivity extends AppCompatActivity
             fechaSolicitud = intent.getStringExtra(MisPedidosActivity.KEY_FECHA_SOLICITUD);
         }
 
+        sacarDatosPedidos();
         cargarDetallesPedido();
+    }
+
+    private void sacarDatosPedidos()
+    {
+        nevera = pedidosDB.neveraSeleccionada();
+        ArrayList<Usuario> arUser = pedidosDB.getUsuario();
+        for (Usuario usuario: arUser)
+        {
+            nombreGranja = usuario.getNombreGranja();
+            direccion = usuario.getDireccion();
+            //latitud
+            //longitud
+        }
     }
 
     private void cargarDetallesPedido()

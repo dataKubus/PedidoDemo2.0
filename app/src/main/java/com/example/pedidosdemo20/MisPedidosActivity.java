@@ -13,9 +13,12 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -25,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -34,6 +38,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.pedidosdemo20.BasesDatos.Usuario;
 import com.example.pedidosdemo20.Fragment.PedidosEnCursoFragment;
 import com.example.pedidosdemo20.Fragment.PedidosTerminadosFragment;
@@ -46,7 +52,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +67,7 @@ import java.util.Map;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MisPedidosActivity extends AppCompatActivity
 {
@@ -92,6 +103,8 @@ public class MisPedidosActivity extends AppCompatActivity
     public static ArrayList<String> alFechaSolicitud = new ArrayList<>();
     public static ArrayList<String> alFechaEntrega = new ArrayList<>();
     public static ArrayList<String> alEstado = new ArrayList<>();
+    public static ArrayList<String> alNevera = new ArrayList<>();
+    public static ArrayList<String> alComentarios = new ArrayList<>();
 
 
     public static ArrayList<Integer> alIdProducto = new ArrayList<>();
@@ -165,7 +178,7 @@ public class MisPedidosActivity extends AppCompatActivity
             ivfotoPerfil.setEnabled(false);
         }
 
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        /*sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         selectedImagePath = sharedPreferences.getString(IMAGE_PATH_KEY, null);
         if (selectedImagePath != null)
         {
@@ -174,7 +187,7 @@ public class MisPedidosActivity extends AppCompatActivity
             {
                 ivfotoPerfil.setImageBitmap(bitmap);
             }
-        }
+        }*/
     }
 
     private void establecerPedidosEnCurso()
@@ -192,6 +205,8 @@ public class MisPedidosActivity extends AppCompatActivity
         alNumero.clear();
         alFormato.clear();
         alLinea.clear();
+        alEstado.clear();
+        alComentarios.clear();
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -240,6 +255,8 @@ public class MisPedidosActivity extends AppCompatActivity
                 String fechaSolicitud;
                 String fechaEntrega;
                 String estado;
+                String nevera;
+                String comenatrios;
                 int contador = 0;
 
                 int idPro;
@@ -282,6 +299,12 @@ public class MisPedidosActivity extends AppCompatActivity
 
                             estado = jsonObjectID.getString("estado");
                             alEstado.add(estado);
+
+                            nevera = jsonObjectID.getString("nevera");
+                            alNevera.add(nevera);
+
+                            comenatrios = jsonObjectID.getString("comentarios");
+                            alComentarios.add(comenatrios);
 
                             JSONArray jsonArray1 = jsonArray.getJSONObject(i).getJSONArray("Productos");
                             for (int j = 0; j < jsonArray1.length(); j++)
@@ -489,12 +512,33 @@ public class MisPedidosActivity extends AppCompatActivity
 
         String fechaHoy = sacarFechaHoy();
         tvFecha.setText(fechaHoy);
-        ArrayList<Usuario> arUser = new ArrayList<>();
+        ArrayList<Usuario> arUser = pedidosDB.getUsuario();
+        String urlfoto = "";
 
         for (Usuario usuario: arUser)
         {
             tvNombreGranja.setText(usuario.getNombreGranja());
-            tvNombreUsuario.setText("¡" + getString(R.string.hola) + " " + usuario.getNombreUsuario() + "!");
+            tvNombreUsuario.setText("¡" + getString(R.string.hola) + " " + usuario.getEmail() + "!");//poner nombre cuando este guardado en la base de datos
+            urlfoto = usuario.getUrlFotoPerfil();
+        }
+
+        if (!urlfoto.equals(""))
+        {
+            try
+            {
+                Uri uri = Uri.parse(urlfoto);
+                ivfotoPerfil.setImageURI(uri);
+            }
+            catch (Exception e)
+            {
+                ivfotoPerfil.setImageResource(R.drawable.ic_perfil);
+            }
+                /*Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                if (bitmap != null)
+                {
+                    ivfotoPerfil.setImageBitmap(bitmap);
+                    //pedidosDB.actualizarfotoPerfil(selectedImagePath);
+                }*/
         }
 
         ivfotoPerfil.setOnClickListener(new View.OnClickListener()
@@ -522,6 +566,8 @@ public class MisPedidosActivity extends AppCompatActivity
                 alFechaSolicitud.clear();
                 alFechaEntrega.clear();
                 alEstado.clear();
+                alNevera.clear();
+                alComentarios.clear();
                 alIdProducto.clear();
                 alIdPedido.clear();
                 alNumero.clear();
@@ -564,6 +610,8 @@ public class MisPedidosActivity extends AppCompatActivity
                 alFechaSolicitud.clear();
                 alFechaEntrega.clear();
                 alEstado.clear();
+                alNevera.clear();
+                alComentarios.clear();
                 alIdProducto.clear();
                 alIdPedido.clear();
                 alNumero.clear();
@@ -693,6 +741,8 @@ public class MisPedidosActivity extends AppCompatActivity
         alFechaSolicitud.clear();
         alFechaEntrega.clear();
         alEstado.clear();
+        alNevera.clear();
+        alComentarios.clear();
         alIdProducto.clear();
         alIdPedido.clear();
         alNumero.clear();
@@ -912,13 +962,26 @@ public class MisPedidosActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK && data != null)
         {
-            Uri selectedImageUri = data.getData();
-            selectedImagePath = selectedImageUri.toString();
-            Bitmap bitmap = getBitmapFromPath(selectedImagePath);
-            if (bitmap != null)
+            Uri image = data.getData();
+            ivfotoPerfil.setImageURI(image);
+            pedidosDB.actualizarfotoPerfil(image.toString());
+            try
             {
-                ivfotoPerfil.setImageBitmap(bitmap);
-                saveImagePath(selectedImagePath);
+                /*Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), image);
+                if (bitmap != null)
+                {
+                    ivfotoPerfil.setImageURI(image);
+                    pedidosDB.actualizarfotoPerfil(image + "");
+                    //saveImagePath(selectedImagePath);
+                }*/
+            }
+            catch (OutOfMemoryError e)
+            {
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
             }
         }
     }
@@ -941,7 +1004,8 @@ public class MisPedidosActivity extends AppCompatActivity
         return null;
     }
 
-    private void saveImagePath(String imagePath) {
+    private void saveImagePath(String imagePath)
+    {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(IMAGE_PATH_KEY, imagePath);
         editor.apply();
@@ -1069,7 +1133,7 @@ public class MisPedidosActivity extends AppCompatActivity
 
         if(requestCode == 100)
         {
-            if(grantResults.length == 2 && grantResults[0]  == PackageManager.PERMISSION_GRANTED && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if(grantResults.length == 2 && grantResults[0]  == PackageManager.PERMISSION_GRANTED)
             {
                 ivfotoPerfil.setEnabled(true);
             }

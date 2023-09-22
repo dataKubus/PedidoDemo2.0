@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class PedidosDB extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL("create table pedidoFavorito(id Integer primary key autoincrement, idPedido Integer)");
-        db.execSQL("create table usuario(id Integer primary key autoincrement, idUsuarioAnimalSat Integer, nombreUsuario text, nombreGranja text, email text, rega text, telefono text, direccion text, nombreCiaSeleccionado text, idCiaSeleccionado text, idClienteSeleccionado Integer, idRutaSeleccionado Integer)");
+        db.execSQL("create table usuario(id Integer primary key autoincrement, idUsuarioAnimalSat Integer, nombreUsuario text, nombreGranja text, email text, rega text, telefono text, direccion text, nombreCiaSeleccionado text, idCiaSeleccionado text, urlFotoPerfil text, idClienteSeleccionado Integer, idRutaSeleccionado Integer)");
         db.execSQL("create table ciaRegistrado(id Integer primary key autoincrement, idUsuario Integer, idCliente Integer, idRuta Integer, nombreCia text, idBSM text, nombreGranja text, direccionGranja text, telefonoGranja text)");
         db.execSQL("create table nevera(id Integer primary key autoincrement, nombre text, numSerie text)");
     }
@@ -57,7 +58,7 @@ public class PedidosDB extends SQLiteOpenHelper
         cv.put("direccionGranja", ciaGuardado.getDireccionGranja());
         cv.put("telefonoGranja", ciaGuardado.getTelefonoGranja());
 
-        db.insert("ciaGuardado", null, cv);
+        db.insert("ciaRegistrado", null, cv);
     }
 
     public void insertarUsuario(Usuario usuario)
@@ -73,6 +74,7 @@ public class PedidosDB extends SQLiteOpenHelper
         cv.put("direccion", usuario.getDireccion());
         cv.put("nombreCiaSeleccionado", usuario.getNombreCiaSeleccionado());
         cv.put("idCiaSeleccionado", usuario.getIdCiaSeleccionado());
+        cv.put("urlFotoPerfil", usuario.getUrlFotoPerfil());
         cv.put("idClienteSeleccionado", usuario.getIdClienteSeleccionado());
         cv.put("idRutaSeleccionado", usuario.getIdRutaSeleccionado());
 
@@ -127,9 +129,21 @@ public class PedidosDB extends SQLiteOpenHelper
         db.insert("nevera", null, cv);
     }
 
+    public String neveraSeleccionada()
+    {
+        Cursor cursor = db.rawQuery("select nombre from nevera", null);
+        String nev = "";
+        if (cursor.moveToFirst())
+        {
+            nev = cursor.getString(0);
+        }
+        cursor.close();
+        return nev;
+    }
+
     public ArrayList<Usuario> getUsuario()
     {
-        Cursor cursor = db.rawQuery("Select id, idUsuarioAnimalSat, nombreUsuario, nombreGranja, email, rega, telefono, direccion, nombreCiaSeleccionado, idCiaSeleccionado, idClienteSeleccionado, idRutaSeleccionado" + " from usuario", null);
+        Cursor cursor = db.rawQuery("Select id, idUsuarioAnimalSat, nombreUsuario, nombreGranja, email, rega, telefono, direccion, nombreCiaSeleccionado, idCiaSeleccionado, urlFotoPerfil, idClienteSeleccionado, idRutaSeleccionado" + " from usuario", null);
         ArrayList<Usuario> arUser = new ArrayList<>();
         Usuario usuario;
         if (cursor.moveToFirst())
@@ -147,8 +161,9 @@ public class PedidosDB extends SQLiteOpenHelper
                 usuario.setDireccion(cursor.getString(7));
                 usuario.setNombreCiaSeleccionado(cursor.getString(8));
                 usuario.setIdCiaSeleccionado(cursor.getString(9));
-                usuario.setIdClienteSeleccionado(cursor.getInt(10));
-                usuario.setIdRutaSeleccionado(cursor.getInt(11));
+                usuario.setUrlFotoPerfil(cursor.getString(10));
+                usuario.setIdClienteSeleccionado(cursor.getInt(11));
+                usuario.setIdRutaSeleccionado(cursor.getInt(12));
 
                 arUser.add(usuario);
             }
@@ -156,5 +171,10 @@ public class PedidosDB extends SQLiteOpenHelper
         }
         cursor.close();
         return arUser;
+    }
+
+    public void actualizarfotoPerfil(String url)
+    {
+        db.execSQL("update Usuario set urlFotoPerfil = '" + url + "'");
     }
 }

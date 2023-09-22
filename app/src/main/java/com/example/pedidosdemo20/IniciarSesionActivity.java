@@ -433,7 +433,7 @@ public class IniciarSesionActivity extends AppCompatActivity
                             telefonoGranja = jsonObjectID.getString("telefonoGranja");
 
                             pedidosDB.insertarCiaGuardado(new CiaRegistrado(idUsuario, idCliente, idRuta, nombreCia, idBSM, nombreGranja, direccionGranja, telefonoGranja));
-                            pedidosDB.insertarUsuario(new Usuario(idUser, nombreGranja, "prueva", correo, rega, telefonoGranja, direccionGranja, nombreCia, idBSMFinal, idClienteFinal, idRutaFinal));
+                            pedidosDB.insertarUsuario(new Usuario(idUser, "prueva", nombreGranja, correo, rega, telefonoGranja, direccionGranja, nombreCia, idBSMFinal, "", idClienteFinal, idRutaFinal));
                             //pedidosDB.actualizarCamposUsuarioCia(idUser, nombreGranja, telefonoGranja, direccionGranja, "-", "-", nombreCia, idBSM, idCliente, idRuta);
                             contador++;
                         }

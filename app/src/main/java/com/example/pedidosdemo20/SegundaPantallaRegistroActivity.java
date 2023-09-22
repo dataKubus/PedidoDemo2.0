@@ -768,7 +768,7 @@ public class SegundaPantallaRegistroActivity extends AppCompatActivity
 
                 //String[] arResponse = response.split("id\":");
                 //String idUser = arResponse[1].replace("}]}","");
-                pedidosDB.insertarUsuario(new Usuario(idUser, etNombre.getText().toString(), nombreGranja, mail, rega, telefonoGranja, direccionGranja, nombreCia, idBSM, idCliente, idRuta));
+                pedidosDB.insertarUsuario(new Usuario(idUser, etNombre.getText().toString(), nombreGranja, mail, rega, telefonoGranja, direccionGranja, nombreCia, idBSM, "", idCliente, idRuta));
                 //pedidosDB.actualizarCamposUsuarioCia(idUser, nombreGranja, telefonoGranja, direccionGranja, "-", "-", nombreCia, idBSM, idcliente, idRuta);
                 pedidosDB.insertarCiaGuardado(new CiaRegistrado(idUser, idCliente, idRuta, nombreCia, idBSM, nombreGranja, direccionGranja, telefonoGranja));
                 /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

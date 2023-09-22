@@ -12,10 +12,11 @@ public class Usuario
     private String direccion;
     private String nombreCiaSeleccionado;
     private String idCiaSeleccionado;
+    private String urlFotoPerfil;
     private int idClienteSeleccionado;
     private int idRutaSeleccionado;
 
-    public Usuario(int id, int idUsuarioAnimalSat,  String nombreUsuario, String nombreGranja, String email, String rega, String telefono, String direccion, String nombreCiaSeleccionado, String idCiaSeleccionado, int idClienteSeleccionado, int idRutaSeleccionado) {
+    public Usuario(int id, int idUsuarioAnimalSat, String nombreUsuario, String nombreGranja, String email, String rega, String telefono, String direccion, String nombreCiaSeleccionado, String idCiaSeleccionado, String urlFotoPerfil, int idClienteSeleccionado, int idRutaSeleccionado) {
         this.id = id;
         this.idUsuarioAnimalSat = idUsuarioAnimalSat;
         this.nombreUsuario = nombreUsuario;
@@ -26,11 +27,12 @@ public class Usuario
         this.direccion = direccion;
         this.nombreCiaSeleccionado = nombreCiaSeleccionado;
         this.idCiaSeleccionado = idCiaSeleccionado;
+        this.urlFotoPerfil = urlFotoPerfil;
         this.idClienteSeleccionado = idClienteSeleccionado;
         this.idRutaSeleccionado = idRutaSeleccionado;
     }
 
-    public Usuario(int idUsuarioAnimalSat, String nombreGranja,  String nombreUsuario, String email, String rega, String telefono, String direccion, String nombreCiaSeleccionado, String idCiaSeleccionado, int idClienteSeleccionado, int idRutaSeleccionado) {
+    public Usuario(int idUsuarioAnimalSat, String nombreUsuario, String nombreGranja, String email, String rega, String telefono, String direccion, String nombreCiaSeleccionado, String idCiaSeleccionado, String urlFotoPerfil, int idClienteSeleccionado, int idRutaSeleccionado) {
         this.idUsuarioAnimalSat = idUsuarioAnimalSat;
         this.nombreUsuario = nombreUsuario;
         this.nombreGranja = nombreGranja;
@@ -40,6 +42,7 @@ public class Usuario
         this.direccion = direccion;
         this.nombreCiaSeleccionado = nombreCiaSeleccionado;
         this.idCiaSeleccionado = idCiaSeleccionado;
+        this.urlFotoPerfil = urlFotoPerfil;
         this.idClienteSeleccionado = idClienteSeleccionado;
         this.idRutaSeleccionado = idRutaSeleccionado;
     }
@@ -133,6 +136,14 @@ public class Usuario
 
     public void setIdCiaSeleccionado(String idCiaSeleccionado) {
         this.idCiaSeleccionado = idCiaSeleccionado;
+    }
+
+    public String getUrlFotoPerfil() {
+        return urlFotoPerfil;
+    }
+
+    public void setUrlFotoPerfil(String urlFotoPerfil) {
+        this.urlFotoPerfil = urlFotoPerfil;
     }
 
     public int getIdClienteSeleccionado() {
