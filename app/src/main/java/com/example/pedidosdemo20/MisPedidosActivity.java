@@ -106,7 +106,6 @@ public class MisPedidosActivity extends AppCompatActivity
     public static ArrayList<String> alNevera = new ArrayList<>();
     public static ArrayList<String> alComentarios = new ArrayList<>();
 
-
     public static ArrayList<Integer> alIdProducto = new ArrayList<>();
     public static ArrayList<Integer> alIdPedido = new ArrayList<>();
     public static ArrayList<Integer> alNumero = new ArrayList<>();
@@ -206,6 +205,7 @@ public class MisPedidosActivity extends AppCompatActivity
         alFormato.clear();
         alLinea.clear();
         alEstado.clear();
+        alNevera.clear();
         alComentarios.clear();
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -789,6 +789,8 @@ public class MisPedidosActivity extends AppCompatActivity
                 String cliente;
                 String fechaSolicitud;
                 String fechaEntrega;
+                String nevera;
+                String comentarios;
                 int contador = 0;
 
                 for (int i = 0; i < jsonArray.length(); i++)
@@ -816,6 +818,13 @@ public class MisPedidosActivity extends AppCompatActivity
                         fechaEntrega = jsonObjectID.getString("fechaEntrega");
                         fechaEntrega = fechaEntrega.substring(0,4) + "/" + fechaEntrega.substring(4,6) + "/" + fechaEntrega.substring(6,8);
                         alFechaEntrega.add(fechaEntrega);
+
+                        nevera = jsonObjectID.getString("nevera");
+                        alNevera.add(nevera);
+
+                        comentarios = jsonObjectID.getString("comentarios");
+                        alComentarios.add(comentarios);
+
                         contador++;
 
                         //cambiar webService y que devuelva productos
@@ -1023,7 +1032,8 @@ public class MisPedidosActivity extends AppCompatActivity
         ivPedidosFav.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 ivPedidosFav.setImageResource(R.drawable.ic_favorito_active);
 
                 ivPEdidosFech.setImageResource(R.drawable.ic_fecha_inactive);

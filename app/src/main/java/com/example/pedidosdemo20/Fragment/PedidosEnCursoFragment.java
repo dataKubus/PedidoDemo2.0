@@ -97,10 +97,10 @@ public class PedidosEnCursoFragment extends Fragment
                 int pedFav = pedidosDB.strPedidoFav(MisPedidosActivity.alId.get(i));
                 if (pedFav != 0)
                 {
-                    arList.add(new MyListEnCurso(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoFavorito, MisPedidosActivity.alEstado.get(i), MisPedidosActivity.alNumero.get(i), MisPedidosActivity.alLinea.get(i), MisPedidosActivity.alFormato.get(i)));
+                    arList.add(new MyListEnCurso(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoFavorito, MisPedidosActivity.alEstado.get(i), MisPedidosActivity.alNevera.get(i), MisPedidosActivity.alComentarios.get(i), MisPedidosActivity.alNumero.get(i), MisPedidosActivity.alFormato.get(i), MisPedidosActivity.alLinea.get(i)));
                 }
                 else {
-                    arList.add(new MyListEnCurso(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoNormal, MisPedidosActivity.alEstado.get(i), MisPedidosActivity.alNumero.get(i), MisPedidosActivity.alLinea.get(i), MisPedidosActivity.alFormato.get(i)));
+                    arList.add(new MyListEnCurso(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoNormal, MisPedidosActivity.alEstado.get(i), MisPedidosActivity.alNevera.get(i), MisPedidosActivity.alComentarios.get(i), MisPedidosActivity.alNumero.get(i), MisPedidosActivity.alFormato.get(i), MisPedidosActivity.alLinea.get(i)));
                 }
 
                 MyAdapterPedEnCurso adpater = new MyAdapterPedEnCurso(getContext(), arList);

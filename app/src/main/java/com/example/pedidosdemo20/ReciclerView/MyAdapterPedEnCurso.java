@@ -33,6 +33,8 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
     public static final String KEY_FECHA_PEDIDO = "key_fecha_pedido";
     public static final String KEY_FECHA_ENTREGA = "key_fecha_entrega";
     public static final String KEY_FECHA_SOLICITUD = "key_fecha_solicitud";
+    public static final String KEY_NEVERA = "key_nevera";
+    public static final String KEY_COMENTARIOS = "key_comentarios";
 
     private String estadoREg = "registrado";
     private String estadoAct = "en curso";
@@ -133,6 +135,8 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
         TextView tvFecha;
         TextView tvFechaPedido;
         TextView tvEstadoPedido;
+        TextView tvNevera;
+        TextView tvComentarios;
 
         ImageView ivVerPedido;
         ImageView ivRepetirPedido;
@@ -157,6 +161,8 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
             ivFavorito = itemView.findViewById(R.id.ivFavorito);
             ivIconoEstado = itemView.findViewById(R.id.ivIconoEstado);
             tvEstadoPedido = itemView.findViewById(R.id.tvEstadoPedido);
+            tvNevera = itemView.findViewById(R.id.tvNevera);
+            tvComentarios = itemView.findViewById(R.id.tvComentarios);
 
             tvNumdosis = itemView.findViewById(R.id.tvNumdosis);
             tvLineaGenetica = itemView.findViewById(R.id.tvLineaGenetica);
@@ -174,6 +180,8 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
                     //String numAlbaran = tvNumAlbaran.getText().toString();
                     String fechaPedido = tvFechaPedido.getText().toString();
                     String fechaSolicitud = tvFechaSolicitud.getText().toString();
+                    String nevera = tvNevera.getText().toString();
+                    String comentarios = tvComentarios.getText().toString();
 
                     Intent intent = new Intent(context, DetallesPedidoActivity.class);
                     intent.putExtra(KEY_ID, idPed);
@@ -182,6 +190,8 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
                     intent.putExtra(KEY_FECHA_PEDIDO, fechaPedido);
                     intent.putExtra(KEY_FECHA_ENTREGA, fechaPedido);
                     intent.putExtra(KEY_FECHA_SOLICITUD, fechaSolicitud);
+                    intent.putExtra(KEY_NEVERA, nevera);
+                    intent.putExtra(KEY_COMENTARIOS, comentarios);
                     context.startActivity(intent);
                     ((AppCompatActivity) view.getContext()).finish();
                 }
@@ -198,7 +208,7 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
                     {
                         ivFavorito.setImageResource(R.drawable.ic_favorito_activo);
                         ivFavorito.setTag(R.drawable.ic_favorito_activo);
-                        pedidosDB.insertarPedidoFavorito(new PedidoFavorito(Integer.parseInt(tvIdPedido.getText().toString())));
+                        pedidosDB.insertarPedidoFavorito(new PedidoFavorito(Integer.parseInt(tvIdPedido.getText().toString()), tvFechaSolicitud.getText().toString(), "", "", tvFechaPedido.getText().toString(), MyAdapter.pedidoFavorito, tvEstadoPedido.getText().toString(), tvNevera.getText().toString(), tvComentarios.getText().toString()));
                     }
                     else
                     {

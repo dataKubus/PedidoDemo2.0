@@ -10,12 +10,14 @@ public class MyListEnCurso
     private String fechaPedido;
     private int pedidoFavorito;
     private String estado;
+    private String nevera;
+    private String comentarios;
 
     private int numDosis;
-    private String lineaGenetica;
     private String formato;
+    private String lineaGenetica;
 
-    public MyListEnCurso(int idPedido, String fechaSolicitud, String numeroPedido, String numeroAlbaran, String fechaPedido, int pedidoFavorito, String estado, int numDosis, String lineaGenetica, String formato) {
+    public MyListEnCurso(int idPedido, String fechaSolicitud, String numeroPedido, String numeroAlbaran, String fechaPedido, int pedidoFavorito, String estado, String nevera, String comentarios, int numDosis, String formato, String lineaGenetica) {
         this.idPedido = idPedido;
         this.fechaSolicitud = fechaSolicitud;
         this.numeroPedido = numeroPedido;
@@ -23,9 +25,11 @@ public class MyListEnCurso
         this.fechaPedido = fechaPedido;
         this.pedidoFavorito = pedidoFavorito;
         this.estado = estado;
+        this.nevera = nevera;
+        this.comentarios = comentarios;
         this.numDosis = numDosis;
-        this.lineaGenetica = lineaGenetica;
         this.formato = formato;
+        this.lineaGenetica = lineaGenetica;
     }
 
     public int getIdPedido() {
@@ -84,6 +88,26 @@ public class MyListEnCurso
         this.estado = estado;
     }
 
+    public String getNevera()
+    {
+        return nevera;
+    }
+
+    public void setNevera(String nevera)
+    {
+        this.nevera = nevera;
+    }
+
+    public String getComentarios()
+    {
+        return comentarios;
+    }
+
+    public void setComentarios(String comentarios)
+    {
+        this.comentarios = comentarios;
+    }
+
     public int getNumDosis() {
         return numDosis;
     }
@@ -92,19 +116,19 @@ public class MyListEnCurso
         this.numDosis = numDosis;
     }
 
-    public String getLineaGenetica() {
-        return lineaGenetica;
-    }
-
-    public void setLineaGenetica(String lineaGenetica) {
-        this.lineaGenetica = lineaGenetica;
-    }
-
     public String getFormato() {
         return formato;
     }
 
     public void setFormato(String formato) {
         this.formato = formato;
+    }
+
+    public String getLineaGenetica() {
+        return lineaGenetica;
+    }
+
+    public void setLineaGenetica(String lineaGenetica) {
+        this.lineaGenetica = lineaGenetica;
     }
 }

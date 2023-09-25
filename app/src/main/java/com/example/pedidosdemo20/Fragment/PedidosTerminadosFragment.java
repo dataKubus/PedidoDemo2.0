@@ -83,10 +83,10 @@ public class PedidosTerminadosFragment extends Fragment
                 int pedFav = pedidosDB.strPedidoFav(MisPedidosActivity.alId.get(i));
                 if (pedFav != 0)
                 {
-                    arList.add(new MyList(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoFavorito));
+                    arList.add(new MyList(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoFavorito, MisPedidosActivity.alNevera.get(i), MisPedidosActivity.alComentarios.get(i)));
                 }
                 else {
-                    arList.add(new MyList(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoNormal));
+                    arList.add(new MyList(MisPedidosActivity.alId.get(i), MisPedidosActivity.alFechaSolicitud.get(i), MisPedidosActivity.alNumPedidoBSM.get(i), "A000016", MisPedidosActivity.alFechaEntrega.get(i), MyAdapter.pedidoNormal, MisPedidosActivity.alNevera.get(i), MisPedidosActivity.alComentarios.get(i)));
                 }
 
                 MyAdapter adpater = new MyAdapter(getContext(), arList);

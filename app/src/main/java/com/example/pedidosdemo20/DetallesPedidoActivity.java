@@ -56,6 +56,8 @@ public class DetallesPedidoActivity extends AppCompatActivity
     private String telefono = "";
     private String correoelectronico = "";
     private String nevera = "";
+    private String comentarios = "";
+    private String nombreUsuario = "";
 
     public static final String KEY_ID_PEDIDO = "key_id";
 
@@ -109,6 +111,7 @@ public class DetallesPedidoActivity extends AppCompatActivity
         numeroAlbaran = intent.getStringExtra(MisPedidosActivity.KEY_NUM_ALBARAN);
         fechaPedido = intent.getStringExtra(MisPedidosActivity.KEY_FECHA_PEDIDO);
         fechaSolicitud = intent.getStringExtra(MisPedidosActivity.KEY_FECHA_SOLICITUD);
+        //comentarios = intent.getStringExtra(MisPedidosActivity.KEY)
 
         if (numeroPedido == null && fechaPedido == null && numeroAlbaran == null)
         {
@@ -116,7 +119,9 @@ public class DetallesPedidoActivity extends AppCompatActivity
             numeroPedido = intent.getStringExtra(MyAdapter.KEY_NUM_PEDIDO);
             numeroAlbaran = intent.getStringExtra(MyAdapter.KEY_NUM_ALBARAN);
             fechaPedido = intent.getStringExtra(MyAdapter.KEY_FECHA_PEDIDO);
-            fechaSolicitud = intent.getStringExtra(MisPedidosActivity.KEY_FECHA_SOLICITUD);
+            fechaSolicitud = intent.getStringExtra(MyAdapter.KEY_FECHA_SOLICITUD);
+            comentarios = intent.getStringExtra(MyAdapter.KEY_COMENTARIOS);
+            nevera = intent.getStringExtra(MyAdapter.KEY_NEVERA);
         }
 
         sacarDatosPedidos();
@@ -131,6 +136,9 @@ public class DetallesPedidoActivity extends AppCompatActivity
         {
             nombreGranja = usuario.getNombreGranja();
             direccion = usuario.getDireccion();
+            nombreUsuario = usuario.getNombreUsuario();
+            telefono = usuario.getTelefono();
+            correoelectronico = usuario.getEmail();
             //latitud
             //longitud
         }
@@ -289,12 +297,14 @@ public class DetallesPedidoActivity extends AppCompatActivity
         TextView tvNevera = entregaConstraintLayout.findViewById(R.id.tvNevera);
         TextView tvObservaciones = entregaConstraintLayout.findViewById(R.id.tvObservaciones);
 
-        tvNombreGranja.setText("-");
-        tvDireccionEntrega.setText("-");
+        //nevera = pedidosDB.neveraSeleccionada();
+
+        tvNombreGranja.setText(nombreGranja);
+        tvDireccionEntrega.setText(direccion);
         tvLatitud.setText("-");
         tvLongitud.setText("-");
-        tvNevera.setText("-");
-        tvObservaciones.setText("-");
+        tvNevera.setText(nevera);
+        tvObservaciones.setText(comentarios);
 
         llEntrega.addView(entregaConstraintLayout);
 
@@ -308,11 +318,11 @@ public class DetallesPedidoActivity extends AppCompatActivity
         ImageView ivRepetirPedido = contactoConstraintLayout.findViewById(R.id.ivRepetirPedido);
         ImageView ivFavorito = contactoConstraintLayout.findViewById(R.id.ivFavorito);
 
-        tvNombre1.setText("-");
+        tvNombre1.setText(nombreUsuario);
         tvNombre2.setText("-");
-        tvTelefono1.setText("-");
+        tvTelefono1.setText(telefono);
         tvTelefono2.setText("-");
-        tvCorreoElectronico.setText("-");
+        tvCorreoElectronico.setText(correoelectronico);
 
         int pedidoFavExiste = pedidosDB.strPedidoFav(idPedido);
 
@@ -349,7 +359,7 @@ public class DetallesPedidoActivity extends AppCompatActivity
                 else
                 {
                     ivFavorito.setImageResource(R.drawable.ic_favorito_activo);
-                    pedidosDB.insertarPedidoFavorito(new PedidoFavorito(idPedido));
+                    pedidosDB.insertarPedidoFavorito(new PedidoFavorito(idPedido, fechaSolicitud, "", "", fechaPedido, MyAdapter.pedidoFavorito, "", nevera, comentarios));
                 }
             }
         });

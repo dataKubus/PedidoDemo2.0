@@ -185,6 +185,36 @@
         android:textColor="@color/letras"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloCorreo"/>
+
+    <TextView
+        android:id="@+id/tvTituloCorreo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/correoElectronico"
+        android:textColor="@color/letrasClaras"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloContacto1"
+        app:layout_constraintTop_toBottomOf="@+id/tvTelefono2" />
+
+    <TextView
+        android:id="@+id/tvCorreoElectronico2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/nombre"
+        android:textColor="@color/letras"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTituloContacto1"
         app:layout_constraintTop_toBottomOf="@+id/tvTituloCorreo" />
 
     <ImageView

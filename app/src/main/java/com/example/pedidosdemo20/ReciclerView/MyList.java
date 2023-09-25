@@ -11,15 +11,19 @@ public class MyList
     private String numeroAlbaran;
     private String fechaPedido;
     private int pedidoFavorito;
+    private String nevera;
+    private String comentarios;
 
-
-    public MyList(int idPedido, String fechaSolicitud, String numeroPedido, String numeroAlbaran, String fechaPedido, int pedidoFavorito) {
+    public MyList(int idPedido, String fechaSolicitud, String numeroPedido, String numeroAlbaran, String fechaPedido, int pedidoFavorito, String nevera, String comentarios)
+    {
         this.idPedido = idPedido;
         this.fechaSolicitud = fechaSolicitud;
         this.numeroPedido = numeroPedido;
         this.numeroAlbaran = numeroAlbaran;
         this.fechaPedido = fechaPedido;
         this.pedidoFavorito = pedidoFavorito;
+        this.nevera = nevera;
+        this.comentarios = comentarios;
     }
 
     public int getIdPedido() {
@@ -70,4 +74,19 @@ public class MyList
         this.pedidoFavorito = pedidoFavorito;
     }
 
+    public String getNevera() {
+        return nevera;
+    }
+
+    public void setNevera(String nevera) {
+        this.nevera = nevera;
+    }
+
+    public String getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
+    }
 }

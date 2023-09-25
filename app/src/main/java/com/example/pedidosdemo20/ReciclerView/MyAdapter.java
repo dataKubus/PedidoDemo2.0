@@ -34,6 +34,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
     public static final String KEY_FECHA_PEDIDO = "key_fecha_pedido";
     public static final String KEY_FECHA_ENTREGA = "key_fecha_entrega";
     public static final String KEY_FECHA_SOLICITUD = "key_fecha_solicitud";
+    public static final String KEY_NEVERA = "key_nevera";
+    public static final String KEY_COMENTARIOS = "key_comentarios";
 
     public MyAdapter(Context context, List<MyList> arLista)
     {
@@ -70,6 +72,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         holder.tvNumPedido.setText(arLista.get(position).getNumeroPedido());
         holder.tvFechaPedidoEntregado.setText(arLista.get(position).getFechaPedido());
         holder.tvNumAlbaran.setText(context.getString(R.string.albaran) + " " + arLista.get(position).getNumeroAlbaran());
+
+
 
         /*holder.tvNumdosis.setText(arLista.get(position).getNumDosis() + "");
         holder.tvFormato.setText(arLista.get(position).getFormato());
@@ -140,6 +144,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         TextView tvNumPedido;
         TextView tvNumAlbaran;
         TextView tvFechaPedidoEntregado;
+        TextView tvNevera;
+        TextView tvComentarios;
 
         /*TextView tvNumdosis;
         TextView tvLineaGenetica;
@@ -162,6 +168,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
             ivVerPedidoEntregado = itemView.findViewById(R.id.ivVerPedidoEntregado);
             ivRepetirPedidoEntregado = itemView.findViewById(R.id.ivRepetirPedidoEntregado);
             ivFavoritoEntregado = itemView.findViewById(R.id.ivFavoritoEntregado);
+            tvNevera = itemView.findViewById(R.id.tvNevera);
+            tvComentarios = itemView.findViewById(R.id.tvComentarios);
 
             /*tvNumdosis = itemView.findViewById(R.id.tvNumdosis);
             tvLineaGenetica = itemView.findViewById(R.id.tvLineaGenetica);
@@ -179,6 +187,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
                     String numAlbaran = tvNumAlbaran.getText().toString();
                     String fechaPedido = tvFechaPedidoEntregado.getText().toString();
                     String fechaSolicitud = tvFechaSolicitud.getText().toString();
+                    String nevera = tvNevera.getText().toString();
+                    String comentarios = tvComentarios.getText().toString();
 
                     Intent intent = new Intent(context, DetallesPedidoActivity.class);
                     intent.putExtra(KEY_ID, idPed);
@@ -187,6 +197,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
                     intent.putExtra(KEY_FECHA_PEDIDO, fechaPedido);
                     intent.putExtra(KEY_FECHA_ENTREGA, fechaPedido);
                     intent.putExtra(KEY_FECHA_SOLICITUD, fechaSolicitud);
+                    intent.putExtra(KEY_NEVERA, nevera);
+                    intent.putExtra(KEY_COMENTARIOS, comentarios);
                     context.startActivity(intent);
                     ((AppCompatActivity) view.getContext()).finish();
                 }
@@ -203,7 +215,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
                     {
                         ivFavoritoEntregado.setImageResource(R.drawable.ic_favorito_activo);
                         ivFavoritoEntregado.setTag(R.drawable.ic_favorito_activo);
-                        pedidosDB.insertarPedidoFavorito(new PedidoFavorito(Integer.parseInt(tvIdPedido.getText().toString())));
+                        pedidosDB.insertarPedidoFavorito(new PedidoFavorito(Integer.parseInt(tvIdPedido.getText().toString()), tvFechaSolicitud.getText().toString(), tvNumPedido.getText().toString(), tvNumAlbaran.getText().toString(), tvFechaPedidoEntregado.getText().toString(), pedidoFavorito, context.getString(R.string.terminado), tvNevera.getText().toString(), tvComentarios.getText().toString()));
                     }
                     else
                     {

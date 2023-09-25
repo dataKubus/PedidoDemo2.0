@@ -127,5 +127,6 @@
 
     <string name="de">de</string>
     <string name="hola">Hola</string>
+    <string name="terminado">Terminado</string>
 
 </resources>

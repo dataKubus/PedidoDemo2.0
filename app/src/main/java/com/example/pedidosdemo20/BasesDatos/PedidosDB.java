@@ -33,7 +33,7 @@ public class PedidosDB extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL("create table pedidoFavorito(id Integer primary key autoincrement, idPedido Integer)");
+        db.execSQL("create table pedidoFavorito(id Integer primary key autoincrement, idPedido Integer, fechaSolicitud text, numeroPedido text, numeroAlbaran text, fechaPedido text, pedidoFavorito Integer, estado text, nevera text, comentarios text)");
         db.execSQL("create table usuario(id Integer primary key autoincrement, idUsuarioAnimalSat Integer, nombreUsuario text, nombreGranja text, email text, rega text, telefono text, direccion text, nombreCiaSeleccionado text, idCiaSeleccionado text, urlFotoPerfil text, idClienteSeleccionado Integer, idRutaSeleccionado Integer)");
         db.execSQL("create table ciaRegistrado(id Integer primary key autoincrement, idUsuario Integer, idCliente Integer, idRuta Integer, nombreCia text, idBSM text, nombreGranja text, direccionGranja text, telefonoGranja text)");
         db.execSQL("create table nevera(id Integer primary key autoincrement, nombre text, numSerie text)");
@@ -98,6 +98,14 @@ public class PedidosDB extends SQLiteOpenHelper
         ContentValues cv = new ContentValues();
 
         cv.put("idPedido", pedidoFavorito.getIdPedido());
+        cv.put("fechaSolicitud", pedidoFavorito.getIdPedido());
+        cv.put("numeroPedido", pedidoFavorito.getIdPedido());
+        cv.put("numeroAlbaran", pedidoFavorito.getIdPedido());
+        cv.put("fechaPedido", pedidoFavorito.getIdPedido());
+        cv.put("pedidoFavorito", pedidoFavorito.getIdPedido());
+        cv.put("estado", pedidoFavorito.getIdPedido());
+        cv.put("nevera", pedidoFavorito.getIdPedido());
+        cv.put("comentarios", pedidoFavorito.getIdPedido());
 
         db.insert("pedidoFavorito", null, cv);
     }
