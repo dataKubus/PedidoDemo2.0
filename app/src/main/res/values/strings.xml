@@ -67,7 +67,7 @@
     <string name="aceptaTerminos">Al registrarse en la aplicación acepta los terminos de privacidad y datos.</string>
     <string name="aceptarTerminos">Aceptar terminos</string>
     <string name="continuar">Continuar</string>
-    <string name="texto1Proteccion">La presente Política de Privacidad establece los términos en que KUBUS LAB usa y protege la información que es proporcionada por
+    <string name="texto1Proteccion">La presente Política de Privacidad establece los términos en que <b>KUBUS LAB</b> usa y protege la información que es proporcionada por
     sus usuarios al momento de utilizar su aplicación. Esta compañía está comprometida con la seguridad de los datos de sus usuarios.
     Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo
     se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser
@@ -82,7 +82,7 @@
     registro de usuarios, de pedidos en caso que aplique, y mejorar nuestros productos y servicios.  Es posible que sean enviados correos
      electrónicos periódicamente a través de nuestro sitio con ofertas especiales, nuevos productos y otra información publicitaria que
     consideremos relevante para usted o que pueda brindarle algún beneficio, estos correos electrónicos serán enviados a la dirección que
-    usted proporcione y podrán ser cancelados en cualquier momento poniéndose en contacto con la compañia. KUBUS LAB está altamente
+        usted proporcione y podrán ser cancelados en cualquier momento poniéndose en contacto con la compañia. <b>KUBUS LAB</b> está altamente
     comprometido para cumplir con el compromiso de mantener su información segura. Usamos los sistemas más avanzados y los actualizamos
     constantemente para asegurarnos que no exista ningún acceso no autorizado.</string>
     <string name="titulo3Proteccion">Enlaces a Terceros</string>
@@ -92,12 +92,12 @@
     políticas de privacidad por lo cual es recomendable que los consulte para confirmar que usted está de acuerdo con estas.</string>
     <string name="titulo4Proteccion">Control de su información personal</string>
     <string name="texto5Proteccion">Esta compañía no venderá, cederá ni distribuirá la información personal que es recopilada sin su consentimiento, salvo que sea
-    requerido por un juez con un orden judicial. KUBUS LAB Se reserva el derecho de cambiar los términos de la presente Política de Privacidad
+        requerido por un juez con un orden judicial. <b>KUBUS LAB</b> Se reserva el derecho de cambiar los términos de la presente Política de Privacidad
     en cualquier momento.</string>
     <string name="debesAceptarTerminos">Debes aceptar los terminos de privacidad de datos</string>
     <string name="textoInicioSesion">Estamos encantados de tenerte de vuelta. Por favor, introduce el correo con el que normalmente accedes a tu cuenta y tu contraseña</string>
 
-    <string name="usuarioNoValido">el usuario o contraseña no son váilidos</string>
+    <string name="usuarioNoValido">el usuario o contraseña no son válidos</string>
     <string name="restaurarPassword">Restaurar contraseña</string>
     <string name="textoPassword">Ingresa el electrónico asociado a tu cuenta y te enviaremos un código de acceso para restablecer tu contraseña</string>
     <string name="emailNoRegistrado">Email no registrado</string>
@@ -128,5 +128,7 @@
     <string name="de">de</string>
     <string name="hola">Hola</string>
     <string name="terminado">Terminado</string>
+
+    <string name="aceptoTerminos">Acepto los terminos de privacidad de datos</string>
 
 </resources>

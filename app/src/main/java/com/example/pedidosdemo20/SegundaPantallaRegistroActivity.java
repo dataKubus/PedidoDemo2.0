@@ -547,13 +547,31 @@ public class SegundaPantallaRegistroActivity extends AppCompatActivity
         /*TextView tvAceptarTerminos = view.findViewById(R.id.tvAceptarTerminos);
         final CheckBox cbAceptar = view.findViewById(R.id.cbAceptar);*/
         ImageView ivAcceder = view.findViewById(R.id.ivAcceder);
+        CheckBox cbAceptar = view.findViewById(R.id.cbAceptar);
         NestedScrollView scrollView5 = view.findViewById(R.id.scrollView5);
 
-        scrollView5.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        /*scrollView5.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(@NonNull NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY)
             {
                 if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())
+                {
+                    ivAcceder.setTag("1");
+                    ivAcceder.setImageResource(R.drawable.ic_boton_acceder_activo);
+                }
+                else
+                {
+                    ivAcceder.setTag("0");
+                    ivAcceder.setImageResource(R.drawable.ic_boton_acceder_bloqueado);
+                }
+            }
+        });*/
+
+        cbAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if (cbAceptar.isChecked())
                 {
                     ivAcceder.setTag("1");
                     ivAcceder.setImageResource(R.drawable.ic_boton_acceder_activo);

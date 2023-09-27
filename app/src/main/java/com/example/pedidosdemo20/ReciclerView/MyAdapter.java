@@ -73,8 +73,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         holder.tvFechaPedidoEntregado.setText(arLista.get(position).getFechaPedido());
         holder.tvNumAlbaran.setText(context.getString(R.string.albaran) + " " + arLista.get(position).getNumeroAlbaran());
 
-
-
         /*holder.tvNumdosis.setText(arLista.get(position).getNumDosis() + "");
         holder.tvFormato.setText(arLista.get(position).getFormato());
         holder.tvLineaGenetica.setText(arLista.get(position).getLineaGenetica());*/

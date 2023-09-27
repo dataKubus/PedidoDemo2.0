@@ -146,53 +146,52 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!--<CheckBox
+    <CheckBox
         android:id="@+id/cbAceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="45dp"
         android:background="@color/fondoPedidos"
-        app:layout_constraintEnd_toStartOf="@+id/txte"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
 
     <TextView
         android:id="@+id/txte"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:text="@string/aceptarTerminos"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/aceptoTerminos"
         android:textColor="@color/letras"
-        android:textSize="17dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5"/>
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cbAceptar"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
 
-    <TextView
-        android:id="@+id/tvAceptarTerminos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginRight="75dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="@string/continuar"
-        android:textSize="23dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txte" />-->
+    <!--<TextView
+       android:id="@+id/tvAceptarTerminos"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="75dp"
+       android:layout_marginLeft="75dp"
+       android:layout_marginTop="25dp"
+       android:layout_marginEnd="75dp"
+       android:layout_marginRight="75dp"
+       android:layout_marginBottom="10dp"
+       android:gravity="center"
+       android:text="@string/continuar"
+       android:textSize="23dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/txte" />-->
+
 
     <ImageView
         android:id="@+id/ivAcceder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
         android:onClick="onclickAcceder"
         android:src="@drawable/ic_boton_acceder_bloqueado"
@@ -200,6 +199,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
+        app:layout_constraintTop_toBottomOf="@+id/txte" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,8 @@ public class PedidoFavorito
     private String nevera;
     private String comentarios;
 
-    public PedidoFavorito(int id, int idPedido, String fechaSolicitud, String numeroPedido, String numeroAlbaran, String fechaPedido, int pedidoFavorito, String estado, String nevera, String comentarios) {
+    public PedidoFavorito(int id, int idPedido, String fechaSolicitud, String numeroPedido, String numeroAlbaran, String fechaPedido, int pedidoFavorito, String estado, String nevera, String comentarios)
+    {
         this.id = id;
         this.idPedido = idPedido;
         this.fechaSolicitud = fechaSolicitud;
@@ -38,6 +39,11 @@ public class PedidoFavorito
         this.estado = estado;
         this.nevera = nevera;
         this.comentarios = comentarios;
+    }
+
+    public PedidoFavorito()
+    {
+
     }
 
     public int getId() {

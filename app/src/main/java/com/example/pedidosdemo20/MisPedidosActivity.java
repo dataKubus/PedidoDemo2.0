@@ -40,6 +40,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.pedidosdemo20.BasesDatos.PedidoFavorito;
 import com.example.pedidosdemo20.BasesDatos.Usuario;
 import com.example.pedidosdemo20.Fragment.PedidosEnCursoFragment;
 import com.example.pedidosdemo20.Fragment.PedidosTerminadosFragment;
@@ -1044,6 +1045,7 @@ public class MisPedidosActivity extends AppCompatActivity
                 llPerfil.removeView(teceroConstraintLayout);
                 //sacarPedidos()
                 filtroFechaPuesto = false;
+                mostrarPedidosFavoritos();
             }
         });
 
@@ -1107,6 +1109,61 @@ public class MisPedidosActivity extends AppCompatActivity
         });
 
         llPerfil.addView(constraintLayout);
+    }
+
+    private void mostrarPedidosFavoritos()
+    {
+        alId.clear();
+        alNumPedidoBSM.clear();
+        alCia.clear();
+        alCliente.clear();
+        alEmail.clear();
+        alFechaSolicitud.clear();
+        alFechaEntrega.clear();
+        alEstado.clear();
+        alNevera.clear();
+        alComentarios.clear();
+        alIdProducto.clear();
+        alIdPedido.clear();
+        alNumero.clear();
+        alFormato.clear();
+        alLinea.clear();
+
+        ArrayList<PedidoFavorito> arPedFav = pedidosDB.getPedidosFavoritos();
+        if (arPedFav.size() == 0)
+        {
+            PedidosTerminadosFragment fragment1 = new PedidosTerminadosFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment1)
+                    .commit();
+        }
+        else
+        {
+            int contador = 0;
+
+            for (PedidoFavorito pedidoFavorito: arPedFav)
+            {
+                alId.add(pedidoFavorito.getIdPedido());
+                alIdPedido.add(pedidoFavorito.getIdPedido());
+                alFechaSolicitud.add(pedidoFavorito.getFechaSolicitud());
+                alNumPedidoBSM.add(pedidoFavorito.getNumeroPedido());
+                alFechaEntrega.add(pedidoFavorito.getFechaPedido());
+
+                alEstado.add(pedidoFavorito.getEstado());
+                alNevera.add(pedidoFavorito.getNevera());
+                alComentarios.add(pedidoFavorito.getComentarios());
+                contador++;
+                if (contador == alId.size())
+                {
+
+                }
+            }
+
+            PedidosTerminadosFragment fragment1 = new PedidosTerminadosFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment1)
+                    .commit();
+        }
     }
 
     private boolean validarPermisos()

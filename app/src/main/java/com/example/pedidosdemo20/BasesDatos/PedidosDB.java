@@ -98,14 +98,14 @@ public class PedidosDB extends SQLiteOpenHelper
         ContentValues cv = new ContentValues();
 
         cv.put("idPedido", pedidoFavorito.getIdPedido());
-        cv.put("fechaSolicitud", pedidoFavorito.getIdPedido());
-        cv.put("numeroPedido", pedidoFavorito.getIdPedido());
-        cv.put("numeroAlbaran", pedidoFavorito.getIdPedido());
-        cv.put("fechaPedido", pedidoFavorito.getIdPedido());
-        cv.put("pedidoFavorito", pedidoFavorito.getIdPedido());
-        cv.put("estado", pedidoFavorito.getIdPedido());
-        cv.put("nevera", pedidoFavorito.getIdPedido());
-        cv.put("comentarios", pedidoFavorito.getIdPedido());
+        cv.put("fechaSolicitud", pedidoFavorito.getFechaSolicitud());
+        cv.put("numeroPedido", pedidoFavorito.getNumeroPedido());
+        cv.put("numeroAlbaran", pedidoFavorito.getNumeroAlbaran());
+        cv.put("fechaPedido", pedidoFavorito.getFechaPedido());
+        cv.put("pedidoFavorito", pedidoFavorito.getPedidoFavorito());
+        cv.put("estado", pedidoFavorito.getEstado());
+        cv.put("nevera", pedidoFavorito.getNevera());
+        cv.put("comentarios", pedidoFavorito.getComentarios());
 
         db.insert("pedidoFavorito", null, cv);
     }
@@ -179,6 +179,35 @@ public class PedidosDB extends SQLiteOpenHelper
         }
         cursor.close();
         return arUser;
+    }
+
+    public ArrayList<PedidoFavorito> getPedidosFavoritos()
+    {
+        Cursor cursor = db.rawQuery("Select id, idPedido, fechaSolicitud, numeroPedido, numeroAlbaran, fechaPedido, pedidoFavorito, estado, nevera, comentarios " + " from pedidoFavorito", null);
+        ArrayList<PedidoFavorito> arPed = new ArrayList<>();
+        PedidoFavorito pedidoFavorito;
+        if (cursor.moveToFirst())
+        {
+            do {
+                pedidoFavorito = new PedidoFavorito();
+
+                pedidoFavorito.setId(cursor.getInt(0));
+                pedidoFavorito.setIdPedido(cursor.getInt(1));
+                pedidoFavorito.setFechaSolicitud(cursor.getString(2));
+                pedidoFavorito.setNumeroPedido(cursor.getString(3));
+                pedidoFavorito.setNumeroAlbaran(cursor.getString(4));
+                pedidoFavorito.setFechaPedido(cursor.getString(5));
+                pedidoFavorito.setPedidoFavorito(cursor.getInt(6));
+                pedidoFavorito.setEstado(cursor.getString(7));
+                pedidoFavorito.setNevera(cursor.getString(8));
+                pedidoFavorito.setComentarios(cursor.getString(9));
+
+                arPed.add(pedidoFavorito);
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return arPed;
     }
 
     public void actualizarfotoPerfil(String url)
