@@ -20,32 +20,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivPedidosFav"
+            android:id="@+id/ivUltimos7dias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_ultimos_7_dias_cative" />
+            android:src="@drawable/ic_ultimos_7_dias_cative"/>
 
         <ImageView
-            android:id="@+id/ivPEdidosFech"
+            android:id="@+id/ivUltimos30Dias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic__utimos_30_dias" />
+            android:src="@drawable/ic__utimos_30_dias"/>
 
         <ImageView
-            android:id="@+id/ivPedidosLin"
+            android:id="@+id/ivUltimos90dias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_ultimos_90_dias" />
+            android:src="@drawable/ic_ultimos_90_dias"/>
 
         <ImageView
-            android:id="@+id/ivPedidosFor"
+            android:id="@+id/ivMes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_mes" />
+            android:src="@drawable/ic_mes"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
