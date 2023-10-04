@@ -130,5 +130,15 @@
     <string name="terminado">Terminado</string>
 
     <string name="aceptoTerminos">Acepto los terminos de privacidad de datos</string>
+    <string name="fechaInicial">Fecha inicial</string>
+    <string name="fechafinal">Fecha final</string>
+    <string name="lineaGenetica">Linea genética</string>
+    <string name="seleccionaUnaOVariasLineas">Selecciona una o varia lineas genéticas</string>
+
+    <string-array name="aaa">
+        <item>aa</item>
+    </string-array>
+
+    <string name="sinLineas">Sin lineas disponibles</string>
 
 </resources>

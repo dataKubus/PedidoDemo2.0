@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,12 +19,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -117,6 +127,19 @@ public class MisPedidosActivity extends AppCompatActivity
     public int pedidosEnCurso = 5;
     public int pedidosTerminados = 10;
     public int fragmentSeleccionado = 5;
+
+    public static boolean fechaInicio = false;
+    private boolean filtradoMesActivado = false;
+    private boolean filtroLineaActivado = false;
+
+    public static EditText etFechaInicio;
+    public static EditText etFechaFin;
+
+    private String[] arLineasUser;
+    private String[] arIdLineasUser;
+
+    private String email;
+    private String idCia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -328,6 +351,7 @@ public class MisPedidosActivity extends AppCompatActivity
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.fragment_container, fragment1)
                                     .commit();
+                            sacarLineasGeneticasDelUser();
                         }
                     }
                 }
@@ -335,6 +359,7 @@ public class MisPedidosActivity extends AppCompatActivity
                     tvSinPedidos.setVisibility(View.VISIBLE);
                     ivIconoEstado.setVisibility(View.VISIBLE);
                     ivNuevoPedido.setVisibility(View.VISIBLE);
+                    sacarLineasGeneticasDelUser();
                 }
             }
         }, new Response.ErrorListener() {
@@ -392,100 +417,132 @@ public class MisPedidosActivity extends AppCompatActivity
         queue.add(stringRequest);
     }
 
-    /*private void dibujarPedidos()
+    private void sacarLineasGeneticasDelUser()
     {
-        int size = alId.size();
+        RequestQueue queue = Volley.newRequestQueue(this);
 
-        if (size == 0)
+        final JSONObject jsonObj = new JSONObject();
+        try
         {
-
+            jsonObj.put("idCia", idCia);
+            jsonObj.put("email", email);
         }
-        else
+        catch (JSONException e)
         {
-            //tvSinPedidos.setVisibility(View.INVISIBLE);
-            for (int i = 0; i < size; i++)
+            e.printStackTrace();
+        }
+
+        String urlRecogerPedido = "https://connect.animalsat.com/api/lineaGeneticaUserBeta";
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, urlRecogerPedido, jsonObj, new Response.Listener<JSONObject>()
+        {
+            @Override
+            public void onResponse(JSONObject response)
             {
-                ConstraintLayout constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_pedido_en_progreso, null);
+                JSONArray jsonArray = null;
 
-                TextView tvEstadoPedido = constraintLayout.findViewById(R.id.tvEstadoPedido);
-                ImageView ivIconoEstado = constraintLayout.findViewById(R.id.ivIconoEstado);
-                LinearLayout llProductos = constraintLayout.findViewById(R.id.llProductos);
-                TextView tvFecha = constraintLayout.findViewById(R.id.tvFecha);
-                TextView tvFechaPedido = constraintLayout.findViewById(R.id.tvFechaPedido);
-                ImageView ivVerPedido = constraintLayout.findViewById(R.id.ivVerPedido);
-                ImageView ivRepetirPedido = constraintLayout.findViewById(R.id.ivRepetirPedido);
-                ImageView ivFavorito = constraintLayout.findViewById(R.id.ivFavorito);
-
-                String estado = alEstado.get(i);
-                String url = "";
-                if (estado.equals(estadoAct))
+                try
                 {
-                    url = "https://www.kubus-sa.com/wp-content/uploads/2023/06/Confirmado.gif";
-                    tvEstadoPedido.setBackgroundColor(getResources().getColor(R.color.naranja));
-                    tvEstadoPedido.setText(R.string.pedidoConfirmado);
+                    jsonArray = response.getJSONArray("response");
                 }
-                else if (estado.equals(estadoREg))
+                catch (JSONException e)
                 {
-                    url = "https://www.kubus-sa.com/wp-content/uploads/2023/06/Espera.gif";
-                    tvEstadoPedido.setBackgroundColor(getResources().getColor(R.color.rojo));
-                    tvEstadoPedido.setText(R.string.pedidoEnEspera);
-                }
-                else
-                {
-                    url = "https://www.kubus-sa.com/wp-content/uploads/2023/06/En-reparto_1.gif";
-                    tvEstadoPedido.setBackgroundColor(getResources().getColor(R.color.azul));
-                    tvEstadoPedido.setText(R.string.pedidoEnReparto);
+                    e.printStackTrace();
                 }
 
-                final int finalI = i;
-                ivVerPedido.setOnClickListener(new View.OnClickListener()
+                JSONObject jsonObjectID;
+
+                String linea;
+                String idLinea;
+
+                int contador = 0;
+
+                if (jsonArray != null)
+                {
+                    arIdLineasUser = new String[jsonArray.length()];
+                    arLineasUser = new String[jsonArray.length()];
+
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        try
+                        {
+                            jsonObjectID = jsonArray.getJSONObject(i);
+
+                            idLinea = jsonObjectID.getString("idLinea");
+                            arIdLineasUser[i] = idLinea;
+
+                            linea = jsonObjectID.getString("linea");
+                            arLineasUser[i] = linea;
+
+                            contador++;
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        /*if (contador == jsonArray.length())
+                        {
+
+                        }*/
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                /*View view = new View(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                view = getLayoutInflater().inflate(R.layout.item_sin_conexion, null);
+                builder.setView(view);
+
+                TextView tvOk = view.findViewById(R.id.tvOk);
+
+                final AlertDialog alertDialog = builder.create();
+
+                tvOk.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(View view)
+                    public void onClick(View v)
                     {
-                        //int idPedido = alId.get(finalI);
-                        Intent intent = new Intent(MisPedidosActivity.this, DetallesPedidoActivity.class);
-                        intent.putExtra(KEY_ID, alId.get(finalI));
-                        intent.putExtra(KEY_NUM_PEDIDO, alNumPedidoBSM.get(finalI));
-                        intent.putExtra(KEY_NUM_ALBARAN, "-");
-                        intent.putExtra(KEY_FECHA_PEDIDO, alFechaEntrega.get(finalI));
-                        intent.putExtra(KEY_FECHA_ENTREGA, alFechaEntrega.get(finalI));
-                        intent.putExtra(KEY_FECHA_SOLICITUD, alFechaSolicitud.get(finalI));
-                        startActivity(intent);
-                        finish();
+                        alertDialog.dismiss();
                     }
                 });
 
-                Uri uri = Uri.parse(url);
-                Glide.with(getApplicationContext()).load(uri).into(ivIconoEstado);
-
-                tvFecha.setText(R.string.fechaPrevistaEntrega);
-                tvFechaPedido.setText(alFechaEntrega.get(i));
-
-                for (int j = 0; j < alIdProducto.size(); j++)
-                {
-                    ConstraintLayout constraintLayout1 = (ConstraintLayout) layoutInflater.inflate(R.layout.item_productos, null);
-
-                    TextView tvNumdosis = constraintLayout1.findViewById(R.id.tvNumdosis);
-                    TextView tvLineaGenetica = constraintLayout1.findViewById(R.id.tvLineaGenetica);
-                    TextView tvFormato = constraintLayout1.findViewById(R.id.tvFormato);
-
-                    int idPed = alIdPedido.get(j);
-                    int id = alId.get(i);
-
-                    if (idPed == id)
-                    {
-                        tvNumdosis.setText(alNumero.get(j) + "");
-                        tvLineaGenetica.setText(alLinea.get(j));
-                        tvFormato.setText(alFormato.get(j));
-
-                        llProductos.addView(constraintLayout1);
-                    }
-                }
-                llPedidosEnCurso.addView(constraintLayout);
+                alertDialog.show();
+                Log.d("TAG", "Error = "+ error);*/
             }
-        }
-    }*/
+        })
+        {
+
+            @Override
+            public byte[] getBody() {
+                try
+                {
+                    return jsonObj.toString() == null ? null : jsonObj.toString().getBytes("utf-8");
+                }
+                catch (UnsupportedEncodingException uee)
+                {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> headers = new HashMap<>();
+                clave = "Basic " + Base64.encodeToString((nombre + ":" + password).getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", clave);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+        queue.add(stringRequest);
+    }
 
     private void establecerPestanaPerfil()
     {
@@ -509,6 +566,9 @@ public class MisPedidosActivity extends AppCompatActivity
             tvNombreGranja.setText(usuario.getNombreGranja());
             tvNombreUsuario.setText("¡" + getString(R.string.hola) + " " + usuario.getEmail() + "!");//poner nombre cuando este guardado en la base de datos
             urlfoto = usuario.getUrlFotoPerfil();
+
+            email = usuario.getEmail();
+            idCia = usuario.getIdCiaSeleccionado();
         }
 
         if (!urlfoto.equals(""))
@@ -567,12 +627,15 @@ public class MisPedidosActivity extends AppCompatActivity
                 ivPEdidosEncurso.setImageResource(R.drawable.ic_pedidos_en_curso_activados);
                 ConstraintLayout segundoConstraintLayout = (ConstraintLayout) llPerfil.getChildAt(1);
                 ConstraintLayout teceroConstraintLayout = (ConstraintLayout) llPerfil.getChildAt(2);
+                ConstraintLayout cuartoConstraitLayout = (ConstraintLayout) llPerfil.getChildAt(3);
                 if (filtroPuesto)
                 {
                     llPerfil.removeView(segundoConstraintLayout);
                     llPerfil.removeView(teceroConstraintLayout);
+                    llPerfil.removeView(cuartoConstraitLayout);
                     filtroPuesto = false;
                     filtroFechaPuesto = false;
+                    filtroLineaActivado = false;
                     establecerPedidosEnCurso();
                 }
                 fragmentSeleccionado = pedidosEnCurso;
@@ -914,60 +977,6 @@ public class MisPedidosActivity extends AppCompatActivity
         Log.d( "js", stringRequest.toString());
     }
 
-    /*private void dibujarPedidosEntregados()
-    {
-        int size = alId.size();
-
-        if (size == 0)
-        {
-
-        }
-        else
-        {
-            rwPedidosEntregados.setHasFixedSize(true);
-            rwPedidosEntregados.setLayoutManager(new LinearLayoutManager(this));
-            List<MyList> arList = new ArrayList();
-            for (int i = 0; i < size; i++)
-            {
-                List<String> listaProdutco = Arrays.asList("", "alLinea.get(j)", "alFormato.get(j)");
-                int pedFav = pedidosDB.strPedidoFav(alId.get(i));
-                if (pedFav != 0)
-                {
-                    arList.add(new MyList(alId.get(i), alFechaSolicitud.get(i), alNumPedidoBSM.get(i), "A000016", alFechaEntrega.get(i), MyAdapter.pedidoFavorito, listaProdutco));
-                }
-                else
-                {
-                    arList.add(new MyList(alId.get(i), alFechaSolicitud.get(i), alNumPedidoBSM.get(i), "A000016", alFechaEntrega.get(i), MyAdapter.pedidoNormal, listaProdutco));
-                }
-
-                //arList.add(new MyList(alNumPedidoBSM.get(i), "A000016", alFechaEntrega.get(i), alNumero.get(i) + "", alFormato.get(i), alLinea.get(i)));
-                //List<String> listaProdutco = Arrays.asList("Elemento 1", "Elemento 2", "Elemento 3");
-                /*for (int j = 0; j < alIdProducto.size(); j++)
-                {
-                    ConstraintLayout constraintLayout1 = (ConstraintLayout) layoutInflater.inflate(R.layout.item_productos, null);
-
-                    TextView tvNumdosis = constraintLayout1.findViewById(R.id.tvNumdosis);
-                    TextView tvLineaGenetica = constraintLayout1.findViewById(R.id.tvLineaGenetica);
-                    TextView tvFormato = constraintLayout1.findViewById(R.id.tvFormato);
-
-                    int idPed = alIdPedido.get(j);
-                    int id = alId.get(i);
-
-                    if (idPed == id)
-                    {
-                        tvNumdosis.setText(alNumero.get(j) + "");
-                        tvLineaGenetica.setText(alLinea.get(j));
-                        tvFormato.setText(alFormato.get(j));
-
-                    }
-                }
-                MyAdapter adpater = new MyAdapter(this, arList);
-                rwPedidosEntregados.setAdapter(adpater);
-            }
-
-        }
-    }*/
-
     private void cargarImagen()
     {
         /*Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -1057,6 +1066,7 @@ public class MisPedidosActivity extends AppCompatActivity
                 llPerfil.removeView(teceroConstraintLayout);
                 //sacarPedidos()
                 filtroFechaPuesto = false;
+                filtroLineaActivado = false;
                 mostrarPedidosFavoritos();
             }
         });
@@ -1065,9 +1075,13 @@ public class MisPedidosActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                ConstraintLayout teceroConstraintLayout = (ConstraintLayout) llPerfil.getChildAt(2);
+                llPerfil.removeView(teceroConstraintLayout);
+
                 ivPedidosFav.setImageResource(R.drawable.ic_favorito_inactive);
                 ivPedidosLin.setImageResource(R.drawable.ic_linea_genetica_in_active);
                 ivPedidosFor.setImageResource(R.drawable.ic_formato_inactive);
+                filtroLineaActivado = false;
 
                 if (!filtroFechaPuesto)
                 {
@@ -1092,6 +1106,10 @@ public class MisPedidosActivity extends AppCompatActivity
                             String fechaHoy = fechaActualNumerico();
                             String fechaHace7Dias = restarDias(7);
 
+                            ConstraintLayout cuartoConstraitLayout = (ConstraintLayout) llPerfil.getChildAt(3);
+                            llPerfil.removeView(cuartoConstraitLayout);
+                            filtradoMesActivado = false;
+
                             establecerPedidosFinalizados(fechaHace7Dias, fechaHoy);
                         }
                     });
@@ -1109,6 +1127,10 @@ public class MisPedidosActivity extends AppCompatActivity
                             String fechaHoy = fechaActualNumerico();
                             String fechaUltimos30dias = restarDias(30);
 
+                            ConstraintLayout cuartoConstraitLayout = (ConstraintLayout) llPerfil.getChildAt(3);
+                            llPerfil.removeView(cuartoConstraitLayout);
+                            filtradoMesActivado = false;
+
                             establecerPedidosFinalizados(fechaUltimos30dias, fechaHoy);
                         }
                     });
@@ -1123,8 +1145,12 @@ public class MisPedidosActivity extends AppCompatActivity
                             ivUltimos90dias.setImageResource(R.drawable.ic_ultimos_90_dias_activo);
                             ivMes.setImageResource(R.drawable.ic_mes);
 
+                            ConstraintLayout cuartoConstraitLayout = (ConstraintLayout) llPerfil.getChildAt(3);
+                            llPerfil.removeView(cuartoConstraitLayout);
+
                             String fechaHoy = fechaActualNumerico();
                             String fechaUltimos90dias = restarDias(90);
+                            filtradoMesActivado = false;
                             establecerPedidosFinalizados(fechaUltimos90dias, fechaHoy);
                         }
                     });
@@ -1134,11 +1160,93 @@ public class MisPedidosActivity extends AppCompatActivity
                         @Override
                         public void onClick(View view)
                         {
-                            ivUltimos7dias.setImageResource(R.drawable.ic_ultimos_7_dias_cative);
-                            ivUltimos30Dias.setImageResource(R.drawable.ic__utimos_30_dias);
-                            ivUltimos90dias.setImageResource(R.drawable.ic_ultimos_90_dias);
-                            ivMes.setImageResource(R.drawable.ic_mes_activo);
+                            if (!filtradoMesActivado)
+                            {
+                                filtradoMesActivado = true;
 
+                                ivUltimos7dias.setImageResource(R.drawable.ic_ultimos_7_dias_cative);
+                                ivUltimos30Dias.setImageResource(R.drawable.ic__utimos_30_dias);
+                                ivUltimos90dias.setImageResource(R.drawable.ic_ultimos_90_dias);
+                                ivMes.setImageResource(R.drawable.ic_mes_activo);
+
+                                constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_fechas, null);
+
+                                etFechaInicio = constraintLayout.findViewById(R.id.etFechaInicio);
+                                etFechaFin = constraintLayout.findViewById(R.id.etFechaFin);
+
+                                String fechaActual = fechaActualNumerico();
+                                etFechaFin.setText(fechaActual);
+
+                                etFechaFin.addTextChangedListener(new TextWatcher() {
+                                    @Override
+                                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+                                    {
+
+                                    }
+
+                                    @Override
+                                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+                                    {
+                                        if (!etFechaInicio.getText().toString().equals("") && !etFechaFin.getText().toString().equals(""))
+                                        {
+                                            String fechaInicio = etFechaInicio.getText().toString();
+                                            String fechaFin = etFechaFin.getText().toString();
+                                            establecerPedidosFinalizados(fechaInicio, fechaFin);
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void afterTextChanged(Editable editable) {
+
+                                    }
+                                });
+
+                                etFechaInicio.addTextChangedListener(new TextWatcher() {
+                                    @Override
+                                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                    }
+
+                                    @Override
+                                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+                                    {
+                                        if (!etFechaInicio.getText().toString().equals("") && !etFechaFin.getText().toString().equals(""))
+                                        {
+                                            String fechaInicio = etFechaInicio.getText().toString();
+                                            String fechaFin = etFechaFin.getText().toString();
+                                            establecerPedidosFinalizados(fechaInicio, fechaFin);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void afterTextChanged(Editable editable) {
+
+                                    }
+                                });
+
+                                etFechaInicio.setOnClickListener(new View.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(View view)
+                                    {
+                                        fechaInicio = true;
+                                        showDatePickerdialog();
+                                    }
+                                });
+
+                                etFechaFin.setOnClickListener(new View.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(View view)
+                                    {
+                                        fechaInicio = false;
+                                        showDatePickerdialog();
+                                    }
+                                });
+
+                                llPerfil.addView(constraintLayout);
+                            }
 
                             //establecerPedidosFinalizados(fechaHace7Dias, fechaHoy);
                         }
@@ -1147,8 +1255,6 @@ public class MisPedidosActivity extends AppCompatActivity
                     llPerfil.addView(constraintLayout);
                 }
                 else {
-                    ConstraintLayout teceroConstraintLayout = (ConstraintLayout) llPerfil.getChildAt(2);
-                    llPerfil.removeView(teceroConstraintLayout);
                     filtroFechaPuesto = false;
                 }
             }
@@ -1156,7 +1262,8 @@ public class MisPedidosActivity extends AppCompatActivity
 
         ivPedidosLin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 ivPedidosLin.setImageResource(R.drawable.ic_linea_genetica_active);
 
                 ivPedidosFav.setImageResource(R.drawable.ic_favorito_inactive);
@@ -1164,8 +1271,34 @@ public class MisPedidosActivity extends AppCompatActivity
                 ivPedidosFor.setImageResource(R.drawable.ic_formato_inactive);
 
                 ConstraintLayout teceroConstraintLayout = (ConstraintLayout) llPerfil.getChildAt(2);
+                ConstraintLayout cuartoConstraintLayout = (ConstraintLayout) llPerfil.getChildAt(3);
                 llPerfil.removeView(teceroConstraintLayout);
+                llPerfil.removeView(cuartoConstraintLayout);
                 filtroFechaPuesto = false;
+                filtradoMesActivado = false;
+
+                if (!filtroLineaActivado)
+                {
+                    filtroLineaActivado = true;
+                    constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_linea_genetica, null);
+
+                    Spinner spFechaInicio = constraintLayout.findViewById(R.id.spFechaInicio);
+
+                    if (arLineasUser == null || arLineasUser.length == 0)
+                    {
+                        arLineasUser = new String[]{getString(R.string.sinLineas)};
+                    }
+                    else
+                    {
+                        spFechaInicio.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, arLineasUser));
+                    }
+                    llPerfil.addView(constraintLayout);
+                }
+                else
+                {
+                    filtroLineaActivado = false;
+                }
+
             }
         });
 
@@ -1182,10 +1315,25 @@ public class MisPedidosActivity extends AppCompatActivity
                 ConstraintLayout teceroConstraintLayout = (ConstraintLayout) llPerfil.getChildAt(2);
                 llPerfil.removeView(teceroConstraintLayout);
                 filtroFechaPuesto = false;
+                filtradoMesActivado = false;
+                filtroLineaActivado = false;
             }
         });
 
         llPerfil.addView(constraintLayout);
+    }
+
+    private void showDatePickerdialog()
+    {
+        MisPedidosActivity.DatePickerFragment newFragment = MisPedidosActivity.DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+
+            }
+        });
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     private String restarDias(int dias)
@@ -1362,5 +1510,104 @@ public class MisPedidosActivity extends AppCompatActivity
             }
         }
 
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
+    {
+        private DatePickerDialog.OnDateSetListener listener;
+
+        public static MisPedidosActivity.DatePickerFragment newInstance(DatePickerDialog.OnDateSetListener listener)
+        {
+            MisPedidosActivity.DatePickerFragment fragment = new MisPedidosActivity.DatePickerFragment();
+            fragment.setListener(listener);
+            return fragment;
+        }
+
+        public void setListener(DatePickerDialog.OnDateSetListener listener)
+        {
+            this.listener = listener;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState)
+        {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new  DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, this, year,month,day);
+
+            if (fechaInicio)
+            {
+                Calendar calendar = Calendar.getInstance();
+                String fechaFinal = etFechaFin.getText().toString();
+                String[] arFech = fechaFinal.split("/");
+
+                int yearFinal = Integer.parseInt(arFech[0]);
+                int mesFinal = Integer.parseInt(arFech[1]) - 1;
+                int diaFinal = Integer.parseInt(arFech[2]);
+                calendar.set(yearFinal, mesFinal, diaFinal);
+                long fechaMilis = calendar.getTimeInMillis();
+                datePickerDialog.getDatePicker().setMaxDate(fechaMilis);
+            }
+            else
+            {
+                String fechaIni = etFechaInicio.getText().toString();
+                if (!fechaIni.equals(""))
+                {
+                    Calendar calendar = Calendar.getInstance();
+                    String[] arFech = fechaIni.split("/");
+
+                    int yearFinal = Integer.parseInt(arFech[0]);
+                    int mesFinal = Integer.parseInt(arFech[1]) - 1;
+                    int diaFinal = Integer.parseInt(arFech[2]);
+                    calendar.set(yearFinal, mesFinal, diaFinal);
+                    long fechaMilis = calendar.getTimeInMillis();
+                    datePickerDialog.getDatePicker().setMinDate(fechaMilis);
+                    c.set(Calendar.YEAR, year);
+                    datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                }
+                else
+                {
+                    c.set(Calendar.YEAR, year);
+                    datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                }
+            }
+
+            //c.set(Calendar.YEAR, year);
+            //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
+            return datePickerDialog;
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day)
+        {
+            //final String selectedDate = day + "/ " + (month+1) + "/ " + year;
+            int finalMothn = (month +1);
+
+            String strDay = day + "";
+            String strMothn = finalMothn + "";
+
+            if (strDay.length() == 1)
+            {
+                strDay = 0 + "" + strDay;
+            }
+
+            if (strMothn.length() == 1)
+            {
+                strMothn = 0 + "" + strMothn;
+            }
+            final String selectedDate = year  + "/" + strMothn + "/" + strDay;
+            if (fechaInicio)
+            {
+                etFechaInicio.setText(selectedDate);
+            }
+            else
+            {
+                etFechaFin.setText(selectedDate);
+            }
+        }
     }
 }
