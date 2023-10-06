@@ -20,7 +20,7 @@
         android:textColor="@color/letrasClaras"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <TextView
@@ -36,7 +36,7 @@
         android:textColor="@color/letras"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTituloPedido" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloPedido"/>
 
     <TextView
         android:id="@+id/tvTitulDireccionEntrega"
@@ -51,7 +51,7 @@
         android:textColor="@color/letrasClaras"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNombreGranja" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreGranja"/>
 
     <TextView
         android:id="@+id/tvDireccionEntrega"
@@ -66,7 +66,7 @@
         android:textColor="@color/letras"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitulDireccionEntrega" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulDireccionEntrega"/>
 
     <TextView
         android:id="@+id/tvCoordenadasEnvio"
@@ -81,7 +81,7 @@
         android:textColor="@color/letrasClaras"
         android:textSize="13dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDireccionEntrega" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDireccionEntrega"/>
 
     <TextView
         android:id="@+id/tvTituloLatitud"
@@ -96,7 +96,7 @@
         android:textColor="@color/letrasClaras"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCoordenadasEnvio" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCoordenadasEnvio"/>
 
     <TextView
         android:id="@+id/tvTituloLongitud"

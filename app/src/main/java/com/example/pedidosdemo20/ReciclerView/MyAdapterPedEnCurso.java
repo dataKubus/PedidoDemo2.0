@@ -2,6 +2,7 @@ package com.example.pedidosdemo20.ReciclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,13 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
         holder.tvFormato.setText(arLista.get(position).getFormato());
         holder.tvLineaGenetica.setText(arLista.get(position).getLineaGenetica());
 
+        Typeface poppins = Typeface.createFromAsset(context.getAssets(), "font/Poppins-Regular.ttf");
+
+        holder.tvFechaSolicitud.setTypeface(poppins);
+        holder.tvNumdosis.setTypeface(poppins);
+        holder.tvFormato.setTypeface(poppins);
+        holder.tvLineaGenetica.setTypeface(poppins);
+
         //holder.tvNumPedido.setText(arLista.get(position).getNumeroPedido());
         //holder.tvNumAlbaran.setText(context.getString(R.string.albaran) + " " + arLista.get(position).getNumeroAlbaran());
 
@@ -96,24 +104,33 @@ public class MyAdapterPedEnCurso extends RecyclerView.Adapter<MyAdapterPedEnCurs
             url = "https://www.kubus-sa.com/wp-content/uploads/2023/06/Espera.gif";
             holder.tvEstadoPedido.setBackgroundColor(context.getResources().getColor(R.color.rojo));
             holder.tvEstadoPedido.setText(R.string.pedidoEnEspera);
+            holder.tvEstadoPedido.setTypeface(poppins);
             holder.tvFecha.setText(R.string.fechaDePedido);
+            holder.tvFecha.setTypeface(poppins);
             holder.tvFechaPedido.setText(arLista.get(position).getFechaSolicitud());
+            holder.tvFechaPedido.setTypeface(poppins);
         }
         else if (estado.equals(estadoAct))
         {
             url = "https://www.kubus-sa.com/wp-content/uploads/2023/06/Confirmado.gif";
             holder.tvEstadoPedido.setBackgroundColor(context.getResources().getColor(R.color.naranja));
             holder.tvEstadoPedido.setText(R.string.pedidoConfirmado);
+            holder.tvEstadoPedido.setTypeface(poppins);
             holder.tvFecha.setText(R.string.fechaPrevistaEntrega);
+            holder.tvFecha.setTypeface(poppins);
             holder.tvFechaPedido.setText(arLista.get(position).getFechaPedido());
+            holder.tvFechaPedido.setTypeface(poppins);
         }
         else
         {
             url = "https://www.kubus-sa.com/wp-content/uploads/2023/06/reparto_1.gif";
             holder.tvEstadoPedido.setBackgroundColor(context.getResources().getColor(R.color.azul));
             holder.tvEstadoPedido.setText(R.string.pedidoEnReparto);
+            holder.tvEstadoPedido.setTypeface(poppins);
             holder.tvFecha.setText(R.string.fechaPrevistaEntrega);
+            holder.tvFecha.setTypeface(poppins);
             holder.tvFechaPedido.setText(arLista.get(position).getFechaPedido());
+            holder.tvFechaPedido.setTypeface(poppins);
         }
 
         Uri uri = Uri.parse(url);

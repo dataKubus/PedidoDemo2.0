@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo"
+    android:id="@+id/cMisPedidos"
     tools:context=".MisPedidosActivity">
 
     <ScrollView
@@ -65,6 +66,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSinPedidos"/>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nvMenuLateral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:menu="@menu/menu_lateral" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <FrameLayout
         android:id="@+id/fragment_container"

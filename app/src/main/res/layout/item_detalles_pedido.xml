@@ -89,7 +89,7 @@
         android:textColor="@color/letrasClaras"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumPedido" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNumPedido"/>
 
     <TextView
         android:id="@+id/tvTituloFechaAlbaran"
@@ -104,7 +104,7 @@
         android:textColor="@color/letrasClaras"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFechaPedido" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFechaPedido"/>
 
     <ImageView
         android:id="@+id/ivAlbaran"
@@ -114,7 +114,7 @@
         android:layout_marginTop="5dp"
         android:src="@drawable/ic_albaran"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTituloNumeroAlbaran" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloNumeroAlbaran"/>
 
     <TextView
         android:id="@+id/tvNumAlbaran"
@@ -158,7 +158,7 @@
         android:textColor="@color/letras"
         android:textSize="17dp"
         app:layout_constraintStart_toEndOf="@+id/ivAlbaran"
-        app:layout_constraintTop_toBottomOf="@+id/tvNumAlbaran" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNumAlbaran"/>
 
     <ScrollView
         android:id="@+id/svPedidosEnCurso"
@@ -174,7 +174,7 @@
             android:id="@+id/llProductosPedido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"/>
 
     </ScrollView>
 
@@ -190,7 +190,7 @@
         android:textColor="@color/letras"
         android:textSize="17dp"
         app:layout_constraintStart_toEndOf="@+id/ivAlbaran"
-        app:layout_constraintTop_toBottomOf="@+id/svPedidosEnCurso" />
+        app:layout_constraintTop_toBottomOf="@+id/svPedidosEnCurso"/>
 
     <ScrollView
         android:id="@+id/svDetalleEntrega"
@@ -206,7 +206,7 @@
             android:id="@+id/llEntrega"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"/>
 
     </ScrollView>
 
@@ -222,7 +222,7 @@
         android:textColor="@color/letras"
         android:textSize="17dp"
         app:layout_constraintStart_toEndOf="@+id/ivAlbaran"
-        app:layout_constraintTop_toBottomOf="@+id/svDetalleEntrega" />
+        app:layout_constraintTop_toBottomOf="@+id/svDetalleEntrega"/>
 
     <ScrollView
         android:id="@+id/svDatosContacto"
@@ -238,7 +238,7 @@
             android:id="@+id/llContacto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"/>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

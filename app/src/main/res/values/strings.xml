@@ -140,5 +140,8 @@
     </string-array>
 
     <string name="sinLineas">Sin lineas disponibles</string>
+    <string name="formato">Formato</string>
+    <string name="sinProductos">Sin productos disponibles</string>
+    <string name="fechaEntrega">Fecha de entrega</string>
 
 </resources>

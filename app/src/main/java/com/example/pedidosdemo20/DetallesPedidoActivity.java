@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -40,6 +41,8 @@ import java.util.Map;
 public class DetallesPedidoActivity extends AppCompatActivity
 {
     private BottomNavigationView bottomNavigation;
+
+    private TextView tvDeta;
 
     private int idPedido;
     private String numeroPedido;
@@ -81,9 +84,13 @@ public class DetallesPedidoActivity extends AppCompatActivity
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
         llDetallesPedido = findViewById(R.id.llDetallesPedido);
+        tvDeta = findViewById(R.id.tvDeta);
         layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         pedidosDB = PedidosDB.getInstance(this);
+
+        Typeface poppins = Typeface.createFromAsset(getAssets(), "font/Poppins-Regular.ttf");
+        tvDeta.setTypeface(poppins);
 
         bottomNavigation.setOnItemSelectedListener(item -> {
             switch (item.getItemId())
@@ -258,6 +265,13 @@ public class DetallesPedidoActivity extends AppCompatActivity
     {
         constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_detalles_pedido, null);
 
+        TextView tvTituloPedido = constraintLayout.findViewById(R.id.tvTituloPedido);
+        TextView tvFechaYHoraDePedido = constraintLayout.findViewById(R.id.tvFechaYHoraDePedido);
+        TextView tvTituloNumeroAlbaran = constraintLayout.findViewById(R.id.tvTituloNumeroAlbaran);
+        TextView tvTituloFechaAlbaran = constraintLayout.findViewById(R.id.tvTituloFechaAlbaran);
+        TextView tvDetallesEntrega = constraintLayout.findViewById(R.id.tvDetallesEntrega);
+        TextView tvDatosContacto = constraintLayout.findViewById(R.id.tvDatosContacto);
+
         TextView tvNumPedido = constraintLayout.findViewById(R.id.tvNumPedido);
         TextView tvFechaPedido = constraintLayout.findViewById(R.id.tvFechaPedido);
         TextView tvNumAlbaran = constraintLayout.findViewById(R.id.tvNumAlbaran);
@@ -272,10 +286,24 @@ public class DetallesPedidoActivity extends AppCompatActivity
         tvNumAlbaran.setText(numeroAlbaran);
         tvFechaAlbaran.setText(fechaPedido);
 
+        Typeface poppins = Typeface.createFromAsset(getAssets(), "font/Poppins-Regular.ttf");
+        tvTituloPedido.setTypeface(poppins);
+        tvTituloNumeroAlbaran.setTypeface(poppins);
+        tvFechaYHoraDePedido.setTypeface(poppins);
+        tvTituloFechaAlbaran.setTypeface(poppins);
+        tvDetallesEntrega.setTypeface(poppins);
+        tvDatosContacto.setTypeface(poppins);
+        tvNumPedido.setTypeface(poppins);
+        tvFechaPedido.setTypeface(poppins);
+        tvNumAlbaran.setTypeface(poppins);
+        tvFechaAlbaran.setTypeface(poppins);
+
         int size = alFormato.size();
         for (int i = 0; i < size; i++)
         {
             ConstraintLayout segundoConstraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_productos_terminados, null);
+
+            TextView tvNumerodosis = segundoConstraintLayout.findViewById(R.id.tvNumerodosis);
 
             TextView tvNumdosis = segundoConstraintLayout.findViewById(R.id.tvNumdosis);
             TextView tvLineaGenetica = segundoConstraintLayout.findViewById(R.id.tvLineaGenetica);
@@ -285,10 +313,23 @@ public class DetallesPedidoActivity extends AppCompatActivity
             tvLineaGenetica.setText(alLinea.get(i));
             tvFormato.setText(alFormato.get(i));
 
+            tvNumerodosis.setTypeface(poppins);
+            tvNumdosis.setTypeface(poppins);
+            tvLineaGenetica.setTypeface(poppins);
+            tvFormato.setTypeface(poppins);
+
             llProductosPedido.addView(segundoConstraintLayout);
         }
 
         ConstraintLayout entregaConstraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_detalle_entrega, null);
+
+        TextView tvTituloPedidoEntr = entregaConstraintLayout.findViewById(R.id.tvTituloPedido);
+        TextView tvTitulDireccionEntrega = entregaConstraintLayout.findViewById(R.id.tvTitulDireccionEntrega);
+        TextView tvCoordenadasEnvio = entregaConstraintLayout.findViewById(R.id.tvCoordenadasEnvio);
+        TextView tvTituloLatitud = entregaConstraintLayout.findViewById(R.id.tvTituloLatitud);
+        TextView tvTituloLongitud = entregaConstraintLayout.findViewById(R.id.tvTituloLongitud);
+        TextView tvTituloNevera = entregaConstraintLayout.findViewById(R.id.tvTituloNevera);
+        TextView tvTituloObservaciones = entregaConstraintLayout.findViewById(R.id.tvTituloObservaciones);
 
         TextView tvNombreGranja = entregaConstraintLayout.findViewById(R.id.tvNombreGranja);
         TextView tvDireccionEntrega = entregaConstraintLayout.findViewById(R.id.tvDireccionEntrega);
@@ -304,11 +345,43 @@ public class DetallesPedidoActivity extends AppCompatActivity
         tvLatitud.setText("-");
         tvLongitud.setText("-");
         tvNevera.setText(nevera);
-        tvObservaciones.setText(comentarios);
+        if (comentarios.equals(""))
+        {
+            tvObservaciones.setText("-");
+        }
+        else
+        {
+            tvObservaciones.setText(comentarios);
+        }
+
+
+        tvTituloPedidoEntr.setTypeface(poppins);
+        tvTitulDireccionEntrega.setTypeface(poppins);
+        tvCoordenadasEnvio.setTypeface(poppins);
+        tvTituloLatitud.setTypeface(poppins);
+        tvTituloLongitud.setTypeface(poppins);
+        tvTituloNevera.setTypeface(poppins);
+        tvTituloObservaciones.setTypeface(poppins);
+        tvNombreGranja.setTypeface(poppins);
+        tvDireccionEntrega.setTypeface(poppins);
+        tvLatitud.setTypeface(poppins);
+        tvLongitud.setTypeface(poppins);
+        tvNevera.setTypeface(poppins);
+        tvObservaciones.setTypeface(poppins);
 
         llEntrega.addView(entregaConstraintLayout);
 
         ConstraintLayout contactoConstraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_datos_contacto, null);
+
+        TextView tvTituloContacto1 = contactoConstraintLayout.findViewById(R.id.tvTituloContacto1);
+        TextView tvTituloContacto2 = contactoConstraintLayout.findViewById(R.id.tvTituloContacto2);
+        TextView tvTituloNombre1 = contactoConstraintLayout.findViewById(R.id.tvTituloNombre1);
+        TextView tvTituloNombre2 = contactoConstraintLayout.findViewById(R.id.tvTituloNombre2);
+        TextView tvTituloNumContacto1 = contactoConstraintLayout.findViewById(R.id.tvTituloNumContacto1);
+        TextView tvTituloNumContacto2 = contactoConstraintLayout.findViewById(R.id.tvTituloNumContacto2);
+        TextView tvTituloCorreo = contactoConstraintLayout.findViewById(R.id.tvTituloCorreo);
+        TextView tvTituloCorreo2 = contactoConstraintLayout.findViewById(R.id.tvTituloCorreo2);
+        TextView tvCorreoElectronico2 = contactoConstraintLayout.findViewById(R.id.tvCorreoElectronico2);
 
         TextView tvNombre1 = contactoConstraintLayout.findViewById(R.id.tvNombre1);
         TextView tvNombre2 = contactoConstraintLayout.findViewById(R.id.tvNombre2);
@@ -323,8 +396,25 @@ public class DetallesPedidoActivity extends AppCompatActivity
         tvTelefono1.setText(telefono);
         tvTelefono2.setText("-");
         tvCorreoElectronico.setText(correoelectronico);
+        tvCorreoElectronico2.setText("-");
 
         int pedidoFavExiste = pedidosDB.strPedidoFav(idPedido);
+
+        tvTituloContacto1.setTypeface(poppins);
+        tvTituloContacto2.setTypeface(poppins);
+        tvTituloNombre1.setTypeface(poppins);
+        tvTituloNombre2.setTypeface(poppins);
+        tvTituloNumContacto1.setTypeface(poppins);
+        tvTituloNumContacto2.setTypeface(poppins);
+        tvTituloCorreo.setTypeface(poppins);
+        tvTituloCorreo2.setTypeface(poppins);
+        tvCorreoElectronico2.setTypeface(poppins);
+        tvNombre1.setTypeface(poppins);
+        tvNombre2.setTypeface(poppins);
+        tvTelefono1.setTypeface(poppins);
+        tvTelefono2.setTypeface(poppins);
+        tvCorreoElectronico.setTypeface(poppins);
+        tvCorreoElectronico2.setTypeface(poppins);
 
         boolean favorito = false;
         if (pedidoFavExiste != 0)

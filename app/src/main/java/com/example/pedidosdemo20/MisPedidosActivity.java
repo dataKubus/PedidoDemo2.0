@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
@@ -15,16 +18,20 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -46,6 +53,7 @@ import com.example.pedidosdemo20.Fragment.PedidosEnCursoFragment;
 import com.example.pedidosdemo20.Fragment.PedidosTerminadosFragment;
 import com.example.pedidosdemo20.BasesDatos.PedidosDB;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,7 +73,9 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 public class MisPedidosActivity extends AppCompatActivity
 {
     private BottomNavigationView bottomNavigation;
+    private NavigationView nvMenuLateral;
     private LinearLayout llPerfil;
+    private boolean menuActivado = false;
 
     private ImageView ivfotoPerfil;
     private String selectedImagePath;
@@ -131,6 +141,7 @@ public class MisPedidosActivity extends AppCompatActivity
     public static boolean fechaInicio = false;
     private boolean filtradoMesActivado = false;
     private boolean filtroLineaActivado = false;
+    private boolean filtroFormatoActivado = false;
 
     public static EditText etFechaInicio;
     public static EditText etFechaFin;
@@ -138,8 +149,14 @@ public class MisPedidosActivity extends AppCompatActivity
     private String[] arLineasUser;
     private String[] arIdLineasUser;
 
+    private String[] arProductos;
+    private String[] arIdProductos;
+
     private String email;
+    private String rega;
     private String idCia;
+    private int idCliente;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -149,13 +166,30 @@ public class MisPedidosActivity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         llPerfil = findViewById(R.id.llPerfil);
-
+        drawerLayout = findViewById(R.id.drawerLayout);
         bottomNavigation = findViewById(R.id.bottomNavigation);
         bottomNavigation.setSelectedItemId(R.id.itMisPedidos);
+        nvMenuLateral = findViewById(R.id.nvMenuLateral);
+        nvMenuLateral.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                // Manejar los clics del menú aquí
+                // Por ejemplo, puedes abrir diferentes fragmentos o actividades según el elemento del menú seleccionado
+                // menuItem.getItemId() te dará el ID del elemento del menú que fue seleccionado
+                // Si deseas abrir un fragmento, puedes hacerlo aquí
+
+
+                // Cerrar el cajón de navegación después de hacer clic en un elemento del menú
+
+                return true;
+            }
+        });
 
         ivIconoEstado = findViewById(R.id.ivIconoEstado);
         tvSinPedidos = findViewById(R.id.tvSinPedidos);
         ivNuevoPedido = findViewById(R.id.ivNuevoPedido);
+        Typeface poppins = Typeface.createFromAsset(getAssets(), "font/Poppins-Regular.ttf");
+        tvSinPedidos.setTypeface(poppins);
 
         pedidosDB = PedidosDB.getInstance(this);
 
@@ -181,6 +215,7 @@ public class MisPedidosActivity extends AppCompatActivity
             return false;
         });
 
+        drawerLayout.setVisibility(View.INVISIBLE);
         establecerPedidosEnCurso();
         establecerPestanaPerfil();
 
@@ -231,9 +266,9 @@ public class MisPedidosActivity extends AppCompatActivity
             jsonObj.put("estado", "registrado");
             jsonObj.put("estado2", "en curso");
             jsonObj.put("estado3", "en reparto");
-            jsonObj.put("email", "data@kubus.es");
+            jsonObj.put("email", email);
             //jsonObj.put("email", email);
-            jsonObj.put("rega", "ES001");
+            jsonObj.put("rega", rega);
         }
         catch (JSONException e)
         {
@@ -481,10 +516,10 @@ public class MisPedidosActivity extends AppCompatActivity
                             e.printStackTrace();
                         }
 
-                        /*if (contador == jsonArray.length())
+                        if (contador == jsonArray.length())
                         {
-
-                        }*/
+                            sacarProductos();
+                        }
                     }
                 }
 
@@ -544,6 +579,139 @@ public class MisPedidosActivity extends AppCompatActivity
         queue.add(stringRequest);
     }
 
+    private void sacarProductos()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        final JSONObject jsonObj = new JSONObject();
+
+        try
+        {
+            jsonObj.put("idCliente", idCliente);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        String urlRecogerPedido = "https://connect.animalsat.com/api/productosVentaCia";
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, urlRecogerPedido, jsonObj, new Response.Listener<JSONObject>()
+        {
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                JSONArray jsonArray = null;
+
+                try
+                {
+                    jsonArray = response.getJSONArray("response");
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+                if (jsonArray == null)
+                {
+
+                }
+                else
+                {
+                    JSONObject jsonObjectID;
+
+                    String formato;
+                    String idProducto;
+                    int contador = 0;
+                    arProductos = new String[jsonArray.length()];
+                    arIdProductos = new String[jsonArray.length()];
+
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        try
+                        {
+                            jsonObjectID = jsonArray.getJSONObject(i);
+
+                            formato = jsonObjectID.getString("nombre");
+                            arProductos[i] = formato;
+
+                            idProducto = jsonObjectID.getString("id");
+                            arIdProductos[i] = idProducto;
+
+                            contador++;
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        /*if (contador == jsonArray.length())
+                        {
+                            cargarLineasCia();
+                        }*/
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                /*View view = new View(ProductosActivity.this);
+                androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(ProductosActivity.this);
+                view = getLayoutInflater().inflate(R.layout.item_sin_conexion, null);
+                builder.setView(view);
+
+                TextView tvOk = view.findViewById(R.id.tvOk);
+                TextView tvTexto = view.findViewById(R.id.tvTexto);
+
+                tvTexto.setText(error + "");
+                final androidx.appcompat.app.AlertDialog alertDialog = builder.create();
+
+                tvOk.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();*/
+                Log.d("TAG", "Error = "+ error);
+            }
+        })
+        {
+
+            @Override
+            public byte[] getBody()
+            {
+                try
+                {
+                    return jsonObj.toString() == null ? null : jsonObj.toString().getBytes("utf-8");
+                }
+                catch (UnsupportedEncodingException uee)
+                {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> headers = new HashMap<>();
+                clave = "Basic " + Base64.encodeToString((nombre + ":" + password).getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", clave);
+
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+
     private void establecerPestanaPerfil()
     {
         constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_ficha_personal, null);
@@ -555,20 +723,31 @@ public class MisPedidosActivity extends AppCompatActivity
         TextView tvNombreUsuario = constraintLayout.findViewById(R.id.tvNombreUsuario);
         ImageView ivPEdidosEncurso = constraintLayout.findViewById(R.id.ivPEdidosEncurso);
         ivPEdidosEntregados = constraintLayout.findViewById(R.id.ivPEdidosEntregados);
+        TextView tvPedidos = constraintLayout.findViewById(R.id.tvPedidos);
+
+        Typeface poppins = Typeface.createFromAsset(getAssets(), "font/Poppins-Regular.ttf");
 
         String fechaHoy = sacarFechaHoy();
         tvFecha.setText(fechaHoy);
+        tvFecha.setTypeface(poppins);
+        tvPedidos.setTypeface(poppins);
+
         ArrayList<Usuario> arUser = pedidosDB.getUsuario();
         String urlfoto = "";
 
         for (Usuario usuario: arUser)
         {
             tvNombreGranja.setText(usuario.getNombreGranja());
-            tvNombreUsuario.setText("¡" + getString(R.string.hola) + " " + usuario.getEmail() + "!");//poner nombre cuando este guardado en la base de datos
+            tvNombreGranja.setTypeface(poppins);
+            tvNombreUsuario.setText("¡" + getString(R.string.hola) + " " + usuario.getEmail() + "!");
+            tvNombreUsuario.setTypeface(poppins);
+
             urlfoto = usuario.getUrlFotoPerfil();
 
             email = usuario.getEmail();
             idCia = usuario.getIdCiaSeleccionado();
+            rega = usuario.getRega();
+            idCliente = usuario.getIdClienteSeleccionado();
         }
 
         if (!urlfoto.equals(""))
@@ -596,6 +775,25 @@ public class MisPedidosActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 cargarImagen();
+            }
+        });
+
+        ivAjustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if (!menuActivado)
+                {
+                    menuActivado = true;
+                    drawerLayout.setVisibility(View.VISIBLE);
+                    drawerLayout.openDrawer(GravityCompat.END);
+                }
+                else
+                {
+                    menuActivado = false;
+                    drawerLayout.setVisibility(View.INVISIBLE);
+                    drawerLayout.closeDrawer(nvMenuLateral);
+                }
             }
         });
 
@@ -636,6 +834,7 @@ public class MisPedidosActivity extends AppCompatActivity
                     filtroPuesto = false;
                     filtroFechaPuesto = false;
                     filtroLineaActivado = false;
+                    filtroFormatoActivado = false;
                     establecerPedidosEnCurso();
                 }
                 fragmentSeleccionado = pedidosEnCurso;
@@ -820,8 +1019,8 @@ public class MisPedidosActivity extends AppCompatActivity
         try
         {
             jsonObj.put("estado", "terminado");
-            jsonObj.put("email", "data@kubus.es");
-            jsonObj.put("rega", "ES001");
+            jsonObj.put("email", email);
+            jsonObj.put("rega", rega);
             jsonObj.put("fechaInicio", fechaHace7Dias);
             jsonObj.put("fechaFin", fechaHoy);
         }
@@ -1067,6 +1266,7 @@ public class MisPedidosActivity extends AppCompatActivity
                 //sacarPedidos()
                 filtroFechaPuesto = false;
                 filtroLineaActivado = false;
+                filtroFormatoActivado = false;
                 mostrarPedidosFavoritos();
             }
         });
@@ -1082,6 +1282,7 @@ public class MisPedidosActivity extends AppCompatActivity
                 ivPedidosLin.setImageResource(R.drawable.ic_linea_genetica_in_active);
                 ivPedidosFor.setImageResource(R.drawable.ic_formato_inactive);
                 filtroLineaActivado = false;
+                filtroFormatoActivado = false;
 
                 if (!filtroFechaPuesto)
                 {
@@ -1276,6 +1477,7 @@ public class MisPedidosActivity extends AppCompatActivity
                 llPerfil.removeView(cuartoConstraintLayout);
                 filtroFechaPuesto = false;
                 filtradoMesActivado = false;
+                filtroFormatoActivado = false;
 
                 if (!filtroLineaActivado)
                 {
@@ -1283,6 +1485,7 @@ public class MisPedidosActivity extends AppCompatActivity
                     constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_linea_genetica, null);
 
                     Spinner spFechaInicio = constraintLayout.findViewById(R.id.spFechaInicio);
+                    ImageView ivDesplegable = constraintLayout.findViewById(R.id.ivDesplegable);
 
                     if (arLineasUser == null || arLineasUser.length == 0)
                     {
@@ -1292,6 +1495,25 @@ public class MisPedidosActivity extends AppCompatActivity
                     {
                         spFechaInicio.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, arLineasUser));
                     }
+
+                    spFechaInicio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+                    {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+                        {
+                            ivDesplegable.setImageResource(R.drawable.ic_desplegable__arriba);
+                            String lineaGenetica = spFechaInicio.getSelectedItem().toString();
+                            int idLinea = sacarIdLinea(lineaGenetica);
+                            pedidosPorLineaGenetica(idLinea, email, rega);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView)
+                        {
+                            ivDesplegable.setImageResource(R.drawable.ic_desplegable);
+                        }
+                    });
+
                     llPerfil.addView(constraintLayout);
                 }
                 else
@@ -1317,10 +1539,450 @@ public class MisPedidosActivity extends AppCompatActivity
                 filtroFechaPuesto = false;
                 filtradoMesActivado = false;
                 filtroLineaActivado = false;
+
+                if (!filtroFormatoActivado)
+                {
+                    filtroFormatoActivado = true;
+                    constraintLayout = (ConstraintLayout) layoutInflater.inflate(R.layout.item_linea_genetica, null);
+
+                    Spinner spFechaInicio = constraintLayout.findViewById(R.id.spFechaInicio);
+                    ImageView ivDesplegable = constraintLayout.findViewById(R.id.ivDesplegable);
+                    TextView tvLineaGnt = constraintLayout.findViewById(R.id.tvLineaGnt);
+                    tvLineaGnt.setText(R.string.formato);
+
+                    if (arProductos == null || arProductos.length == 0)
+                    {
+                        arProductos = new String[]{getString(R.string.sinProductos)};
+                    }
+                    else
+                    {
+                        spFechaInicio.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, arProductos));
+                    }
+
+                    spFechaInicio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+                    {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+                        {
+                            ivDesplegable.setImageResource(R.drawable.ic_desplegable__arriba);
+                            String producto = spFechaInicio.getSelectedItem().toString();
+                            int idProducto = sacarIdProducto(producto);
+                            pedidosPorFormato(idProducto, email, rega);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView)
+                        {
+                            ivDesplegable.setImageResource(R.drawable.ic_desplegable);
+                        }
+                    });
+
+                    llPerfil.addView(constraintLayout);
+                }
+                else
+                {
+                    filtroFormatoActivado = false;
+                }
             }
         });
 
         llPerfil.addView(constraintLayout);
+    }
+
+    private int sacarIdProducto(String producto)
+    {
+        int pos = 0;
+        boolean encontrado = false;
+        for (int i = 0; i < arIdProductos.length && !encontrado; i++)
+        {
+            if (arProductos[i].equals(producto))
+            {
+                pos = i;
+                encontrado = true;
+            }
+        }
+        if (encontrado)
+        {
+            return Integer.parseInt(arIdProductos[pos]);
+        }
+        return 0;
+    }
+
+    private void pedidosPorFormato(int idProducto, String email, String rega)
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        alId.clear();
+        alNumPedidoBSM.clear();
+        alCia.clear();
+        alCliente.clear();
+        alEmail.clear();
+        alFechaSolicitud.clear();
+        alFechaEntrega.clear();
+        alEstado.clear();
+        alNevera.clear();
+        alComentarios.clear();
+        alIdProducto.clear();
+        alIdPedido.clear();
+        alNumero.clear();
+        alFormato.clear();
+        alLinea.clear();
+
+        final JSONObject jsonObj = new JSONObject();
+        //String rega = pedidosDB.rega();
+        try
+        {
+            jsonObj.put("estado", "terminado");
+            jsonObj.put("email", email);
+            jsonObj.put("rega", rega);
+            jsonObj.put("idFormato", idProducto);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        String urlRecogerPedido = "https://connect.animalsat.com/api/historicoPedidosFormatoBeta";
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, urlRecogerPedido, jsonObj, new Response.Listener<JSONObject>()
+        {
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                JSONArray jsonArray = null;
+
+                try
+                {
+                    jsonArray = response.getJSONArray("response");
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+                JSONObject jsonObjectID;
+                int id;
+                String numPedido;
+                String cia;
+                String cliente;
+                String fechaSolicitud;
+                String fechaEntrega;
+                String nevera;
+                String comentarios;
+                int contador = 0;
+
+                if (jsonArray.length() == 0)
+                {
+                    PedidosTerminadosFragment fragment1 = new PedidosTerminadosFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, fragment1)
+                            .commit();
+                }
+                else
+                {
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        try
+                        {
+                            jsonObjectID = jsonArray.getJSONObject(i);
+
+                            id = Integer.parseInt(jsonObjectID.getString("id"));
+                            alId.add(id);
+
+                            numPedido = jsonObjectID.getString("numPedidoBSM");
+                            alNumPedidoBSM.add(numPedido);
+
+                            cia = jsonObjectID.getString("cia");
+                            alCia.add(cia);
+
+                            cliente = jsonObjectID.getString("cliente");
+                            alCliente.add(cliente);
+
+                            fechaSolicitud = jsonObjectID.getString("fechaSolicitud");
+                            fechaSolicitud = fechaSolicitud.substring(0, 4) + "/" + fechaSolicitud.substring(4, 6) + "/" + fechaSolicitud.substring(6, 8);
+                            alFechaSolicitud.add(fechaSolicitud);
+
+                            fechaEntrega = jsonObjectID.getString("fechaEntrega");
+                            fechaEntrega = fechaEntrega.substring(0, 4) + "/" + fechaEntrega.substring(4, 6) + "/" + fechaEntrega.substring(6, 8);
+                            alFechaEntrega.add(fechaEntrega);
+
+                            nevera = jsonObjectID.getString("nevera");
+                            alNevera.add(nevera);
+
+                            comentarios = jsonObjectID.getString("comentarios");
+                            alComentarios.add(comentarios);
+
+                            contador++;
+
+                            //cambiar webService y que devuelva productos
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        if (contador == jsonArray.length())
+                        {
+                            PedidosTerminadosFragment fragment1 = new PedidosTerminadosFragment();
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_container, fragment1)
+                                    .commit();
+                            //dibujarPedidosEntregados();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                /*View view = new View(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                view = getLayoutInflater().inflate(R.layout.item_sin_conexion, null);
+                builder.setView(view);
+
+                TextView tvOk = view.findViewById(R.id.tvOk);
+
+                final AlertDialog alertDialog = builder.create();
+
+                tvOk.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
+                Log.d("TAG", "Error = "+ error);*/
+            }
+        })
+        {
+
+            @Override
+            public byte[] getBody() {
+                try
+                {
+                    return jsonObj.toString() == null ? null : jsonObj.toString().getBytes("utf-8");
+                }
+                catch (UnsupportedEncodingException uee)
+                {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> headers = new HashMap<>();
+                clave = "Basic " + Base64.encodeToString((nombre + ":" + password).getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", clave);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    private void pedidosPorLineaGenetica(int idLinea, String email, String rega)
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        alId.clear();
+        alNumPedidoBSM.clear();
+        alCia.clear();
+        alCliente.clear();
+        alEmail.clear();
+        alFechaSolicitud.clear();
+        alFechaEntrega.clear();
+        alEstado.clear();
+        alNevera.clear();
+        alComentarios.clear();
+        alIdProducto.clear();
+        alIdPedido.clear();
+        alNumero.clear();
+        alFormato.clear();
+        alLinea.clear();
+
+        final JSONObject jsonObj = new JSONObject();
+        //String rega = pedidosDB.rega();
+        try
+        {
+            jsonObj.put("estado", "terminado");
+            jsonObj.put("email", email);
+            jsonObj.put("rega", rega);
+            jsonObj.put("idLinea", idLinea);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        String urlRecogerPedido = "https://connect.animalsat.com/api/historicoPedidosLineaBeta";
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, urlRecogerPedido, jsonObj, new Response.Listener<JSONObject>()
+        {
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                JSONArray jsonArray = null;
+
+                try
+                {
+                    jsonArray = response.getJSONArray("response");
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+
+                JSONObject jsonObjectID;
+                int id;
+                String numPedido;
+                String cia;
+                String cliente;
+                String fechaSolicitud;
+                String fechaEntrega;
+                String nevera;
+                String comentarios;
+                int contador = 0;
+
+                if (jsonArray.length() == 0)
+                {
+                    PedidosTerminadosFragment fragment1 = new PedidosTerminadosFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, fragment1)
+                            .commit();
+                }
+                else
+                {
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        try
+                        {
+                            jsonObjectID = jsonArray.getJSONObject(i);
+
+                            id = Integer.parseInt(jsonObjectID.getString("id"));
+                            alId.add(id);
+
+                            numPedido = jsonObjectID.getString("numPedidoBSM");
+                            alNumPedidoBSM.add(numPedido);
+
+                            cia = jsonObjectID.getString("cia");
+                            alCia.add(cia);
+
+                            cliente = jsonObjectID.getString("cliente");
+                            alCliente.add(cliente);
+
+                            fechaSolicitud = jsonObjectID.getString("fechaSolicitud");
+                            fechaSolicitud = fechaSolicitud.substring(0, 4) + "/" + fechaSolicitud.substring(4, 6) + "/" + fechaSolicitud.substring(6, 8);
+                            alFechaSolicitud.add(fechaSolicitud);
+
+                            fechaEntrega = jsonObjectID.getString("fechaEntrega");
+                            fechaEntrega = fechaEntrega.substring(0, 4) + "/" + fechaEntrega.substring(4, 6) + "/" + fechaEntrega.substring(6, 8);
+                            alFechaEntrega.add(fechaEntrega);
+
+                            nevera = jsonObjectID.getString("nevera");
+                            alNevera.add(nevera);
+
+                            comentarios = jsonObjectID.getString("comentarios");
+                            alComentarios.add(comentarios);
+
+                            contador++;
+
+                            //cambiar webService y que devuelva productos
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+
+                        if (contador == jsonArray.length())
+                        {
+                            PedidosTerminadosFragment fragment1 = new PedidosTerminadosFragment();
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_container, fragment1)
+                                    .commit();
+                            //dibujarPedidosEntregados();
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                /*View view = new View(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                view = getLayoutInflater().inflate(R.layout.item_sin_conexion, null);
+                builder.setView(view);
+
+                TextView tvOk = view.findViewById(R.id.tvOk);
+
+                final AlertDialog alertDialog = builder.create();
+
+                tvOk.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
+                Log.d("TAG", "Error = "+ error);*/
+            }
+        })
+        {
+
+            @Override
+            public byte[] getBody() {
+                try
+                {
+                    return jsonObj.toString() == null ? null : jsonObj.toString().getBytes("utf-8");
+                }
+                catch (UnsupportedEncodingException uee)
+                {
+                    //Log.v("Unsupported Encoding while trying to get the bytes", data);
+                    return null;
+                }
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> headers = new HashMap<>();
+                clave = "Basic " + Base64.encodeToString((nombre + ":" + password).getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", clave);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    private int sacarIdLinea(String lineaGenetica)
+    {
+        int pos = 0;
+        boolean encontrado = false;
+        for (int i = 0; i < arIdLineasUser.length && !encontrado; i++)
+        {
+            if (arLineasUser[i].equals(lineaGenetica))
+            {
+                pos = i;
+                encontrado = true;
+            }
+        }
+        if (encontrado)
+        {
+            return Integer.parseInt(arIdLineasUser[pos]);
+        }
+        return 0;
     }
 
     private void showDatePickerdialog()

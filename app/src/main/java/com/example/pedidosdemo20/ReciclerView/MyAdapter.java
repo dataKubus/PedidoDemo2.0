@@ -2,6 +2,7 @@ package com.example.pedidosdemo20.ReciclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         holder.tvFechaPedidoEntregado.setText(arLista.get(position).getFechaPedido());
         holder.tvNumAlbaran.setText(context.getString(R.string.albaran) + " " + arLista.get(position).getNumeroAlbaran());
 
+        Typeface poppins = Typeface.createFromAsset(context.getAssets(), "font/Poppins-Regular.ttf");
+        holder.tvFechaPedidoEntregado.setTypeface(poppins);
+        holder.tvNumAlbaran.setTypeface(poppins);
+        holder.tvTextoPedido.setTypeface(poppins);
+        holder.tvFecha.setTypeface(poppins);
         /*holder.tvNumdosis.setText(arLista.get(position).getNumDosis() + "");
         holder.tvFormato.setText(arLista.get(position).getFormato());
         holder.tvLineaGenetica.setText(arLista.get(position).getLineaGenetica());*/
@@ -145,6 +151,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
         TextView tvNevera;
         TextView tvComentarios;
 
+        TextView tvTextoPedido;
+        TextView tvFecha;
+
         /*TextView tvNumdosis;
         TextView tvLineaGenetica;
         TextView tvFormato;*/
@@ -168,6 +177,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>
             ivFavoritoEntregado = itemView.findViewById(R.id.ivFavoritoEntregado);
             tvNevera = itemView.findViewById(R.id.tvNevera);
             tvComentarios = itemView.findViewById(R.id.tvComentarios);
+
+            tvTextoPedido = itemView.findViewById(R.id.tvTextoPedido);
+            tvFecha = itemView.findViewById(R.id.tvFecha);
 
             /*tvNumdosis = itemView.findViewById(R.id.tvNumdosis);
             tvLineaGenetica = itemView.findViewById(R.id.tvLineaGenetica);
